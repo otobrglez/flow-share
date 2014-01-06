@@ -1,0 +1,46 @@
+= form_for flow, remote: true do |f|
+
+  .title-wrap
+    .title
+      - if f.object == @flow # and not(@flow.persisted?)
+        = f.text_field :name, placeholder: "New Flow"
+        .small-tools
+          = link_to "Cancel", [:flows]
+          = f.submit
+
+      - else
+        %h1
+          =flow
+          .small-tools
+            =link_to "Delete", flow, method: :delete, remote: true
+            =link_to "Edit", [:edit, flow], remote: true
+
+  - unless (errors = f.object.errors).empty?
+    .errors
+      %ul
+        - f.object.errors.full_messages.each do |msg|
+          %li=msg
+
+  .steps
+    - flow.steps.in_groups_of(4,false) do |group|
+      .row
+        -group.each do |step|
+          = f.fields_for :step do |b|
+            .step
+              %a(href="#")
+                .dot=raw "&nbsp;"
+                .dot-inner=raw "&nbsp;"
+                .dot-small=raw "&nbsp;"
+
+                .inner
+                  - if f.object == @flow
+                    = b.text_field :name, placeholder: "Step"
+                  -else
+                    %h2=step
+
+                .details
+                  .name=step
+
+                  %p
+                    =step
+                    =step.id

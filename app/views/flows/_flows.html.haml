@@ -1,0 +1,9 @@
+.flows
+  %ul
+    - if @flow.present? and @flow.new_record?
+      %li.flow.new
+        = render "flow", flow: @flow
+
+    - (@flows || flows).each do |flow|
+      %li.flow
+        =render flow, flow: flow

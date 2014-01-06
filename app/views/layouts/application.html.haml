@@ -1,0 +1,36 @@
+!!!
+%head
+  %title FlowShare
+  = stylesheet_link_tag    "application", media: "all"
+  = javascript_include_tag "application"
+  = csrf_meta_tags
+
+%body
+  %header
+    .wrap
+      =link_to "FlowShare", root_path, class: "logo"
+
+      .who
+        =link_to "Oto Brglez"
+        |
+        =link_to "Settings"
+
+  %nav
+    .wrap
+      %ul
+        %li=link_to "+ New Flow", [:new, :flow], remote: true, class: "new-flow"
+        %li=link_to "My Flows", root_path, class: "active"
+        %li=link_to "Fika v2"
+        %li=link_to "Dog training"
+
+  .content
+    .wrap
+      .live
+        = yield
+
+  %footer
+    .wrap
+      %ul
+        %li=link_to raw("&copy;")+" 2014 - Fika, Inc"
+
+

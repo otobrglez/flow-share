@@ -1,0 +1,258 @@
+// Colors
+$font-size: 14px
+$green: #55C8B9
+$blue: #66CEF9
+$green: #25B500
+$green-light: #4EC6AB
+
+body, html
+  margin: 0px
+  padding: 0px
+
+body, input, select, textarea
+  font-family: "PT sans", "Helvetica Neue", helvetica, sans-serif
+
+body
+  font-size: $font-size
+a
+  color: black
+  text-decoration: none
+
+  &:hover, &.active
+    text-decoration: underline
+
+h1, h2, h3
+  font-weight: normal
+  margin-bottom: 0px
+h1
+  font-size: $font-size * 1.6
+h2
+  font-size: $font-size * 1.4
+
+header, nav, .content, footer
+  display: block
+  position: relative
+  width: 100%
+
+  .wrap
+    margin: 0px auto
+    max-width: 900px
+    position: relative
+    padding-left: 5px
+    padding-right: 5px
+
+header
+  height: 50px
+  line-height: 20px
+
+  .wrap
+    padding-top: 15px
+
+  .who
+    position: absolute
+    display: inline-block
+    right: 0px
+    font-size: $font-size
+
+  a.logo
+    font-size: $font-size * 1.4
+    &:hover
+      text-decoration: none
+
+
+
+nav
+  background-color: #F4F4F4
+  height: 40px
+  line-height: 40px
+  font-size: $font-size * 1.2
+
+  ul, li
+    list-style: none
+    margin: 0px
+    padding: 0px
+
+  li
+    float: left
+    margin-right: 10px
+    &:first-child a
+      padding-left: 0px
+  a
+    display: inline-block
+    padding-left: 10px
+    padding-right: 10px
+
+    &:active, &.active, &:hover.active
+      background-color: white
+      text-decoration: none
+    &:hover
+      background-color: #EEE
+    &.new-flow
+      background-color: transparent
+
+
+
+footer
+  color: #333
+
+  ul, li
+    list-style: none
+    margin: 0px
+    padding: 0px
+  a
+    color: #333
+
+
+
+div.content
+  margin-top: 50px
+  min-height: 400px // remove at some point
+
+.flows
+  a
+    text-decoration: none
+
+  ul, li
+    list-style: none
+    margin: 0px
+    padding: 0px
+
+  li.flow
+    display: block
+    position: relative
+    width: 100%
+    margin-bottom: 100px
+
+    .title-wrap
+      position: relative
+      display: block
+
+      .title
+        input[type=text], h1
+          margin: 0px
+          padding: 0px
+          font-size: $font-size * 1.6
+          border: 0px
+
+        // height: $font-size * 1.2
+        border: 1px solid #CCC
+
+        .small-tools
+          display: none
+          font-size: $font-size
+
+
+      &:hover
+        .small-tools
+          display: inline-block
+          input
+            font-size: $font-size
+
+    .errors
+      ul, li
+        list-style: none
+        margin: 0px
+        padding: 0px
+        color: red
+
+    .steps
+      display: table
+      position: relative
+      width: 100%
+      border-collapse: collapse
+
+      .row
+        display: table-row
+        margin: 0px
+
+      .step
+        display: table-cell
+        position: relative
+        z-index: 1
+        width: 25%
+
+        p
+          margin: 0px
+          padding: 0px
+
+        .dot, .dot-inner, .dot-small
+          border-radius: 50%
+          width: 20px
+          height: 20px
+          background-color: $blue
+          position: absolute
+          top: 0px
+          left: 0px
+          z-index: 10
+
+        .dot-inner
+          background-color: white
+          width: 14px
+          height: 14px
+          left: 3px
+          top: 3px
+
+        .dot-small
+          display: none
+          width: 8px
+          height: 8px
+          left: 6px
+          top: 6px
+
+
+        h2, .name
+          font-weight: normal
+          font-size: $font-size
+          text-align: center
+          color: #444
+          margin: 0px
+          padding: 0px
+          display: block
+          padding-top: 3px
+
+        .inner
+          margin-top: 7px
+          display: block
+          border-top: 6px solid $blue
+
+        .details
+          background-color: $blue
+          position: absolute
+          display: none
+          top: 10px
+          z-index: 9
+          padding: 10px
+          padding-top: 3px
+          color: #333
+          box-shadow: 2px 2px 3px #CCC
+          font-size: $font-size - 2
+          -webkit-border-bottom-right-radius: 3px
+          -webkit-border-bottom-left-radius: 3px
+          -moz-border-radius-bottomright: 3px
+          -moz-border-radius-bottomleft: 3px
+          border-bottom-right-radius: 3px
+          border-bottom-left-radius: 3px
+
+        &.done
+          .dot
+            background-color: $green
+          .dot-inner
+            background-color: $green
+          .inner
+            border-top: 6px solid $green-light
+
+        &:hover
+          z-index: 3
+          .dot-small
+            display: block
+
+          &.done
+            .dot-small
+              background-color: white
+            .details
+              background-color: $green-light
+
+          .details
+            display: block
+
+

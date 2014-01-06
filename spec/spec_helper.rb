@@ -31,7 +31,7 @@ Spork.prefork do
     config.fail_fast = ENV['RSPEC_FAIL_FAST'] == "1"
     # config.include Helpers
     config.mock_framework = :rspec # :mocha
-    config.order = 'random'
+    # config.order = 'random'
 
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

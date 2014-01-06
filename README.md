@@ -16,6 +16,9 @@ You might need to add the following to your /etc/sysctl.conf file (if it doesn't
 ### Create databases and migrate
     rake db:create db:migrate db:test:prepare
 
+### For parallel tests please prepare database
+    rake parallel:create parallel:prepare
+
 ### Troubles
   - [PostgreSQL basics by example](http://darthdeus.github.io/blog/2013/08/19/postgresql-basics-by-example/)
   - [RailsCasts: #342 Migrating to PostgreSQL](http://railscasts.com/episodes/342-migrating-to-postgresql)
