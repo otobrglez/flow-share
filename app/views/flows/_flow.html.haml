@@ -28,7 +28,7 @@
       .row
         - group.each do |step|
           - unless step.nil?
-            .step
+            .step{ class: step.completed? ? "done" : "" }
               = f.fields_for :steps, step do |b|
                 .dot=raw "&nbsp;"
                 .dot-inner=raw "&nbsp;"
@@ -62,6 +62,7 @@
 
                   .actions
                     %p
+
                       =link_to "Done", "#step_done", class: [:done, :step_done]
           - else
             .step.blank

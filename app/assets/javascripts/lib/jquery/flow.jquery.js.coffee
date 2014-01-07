@@ -17,6 +17,9 @@
       # Focus on name field
       @focus_name()
 
+      # Mark end of flow
+      @mark_last_step()
+
       # Apend first blank step
       if @is_editable()
         @append_blank_step()
@@ -53,6 +56,8 @@
         $(element).find(".step_comment").attr("name", "flow[steps_attributes][#{index}][comment]")
         $(element).find(".step_destroy").attr("name", "flow[steps_attributes][#{index}][_destroy]")
 
+      @mark_last_step()
+
     append_blank_step: ->
       number_of_nonblanks = @$el.find(".row:last .step:not(.blank)").length
 
@@ -87,6 +92,11 @@
       input = $(e.currentTarget).parents(".step").find(".step_destroy")
       input.prop("checked", true)
       input.parents("form").trigger("submit")
+
+    mark_last_step: ->
+      @$el.removeClass("last-step")
+      last = @$el.find(".step:not(.dummy):not(.blank):last")
+      last.addClass("last-step")
 
   $.fn.extend Flow: (option, args...) ->
     @each ->
