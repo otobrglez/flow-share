@@ -68,5 +68,8 @@ group :development, :test do
   gem 'debugger'
 end
 
+gem 'rails_12factor', group: :production
+
+
 gem 'heroku'
 
