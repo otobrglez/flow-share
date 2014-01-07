@@ -1,3 +1,2 @@
 
-$ ->
-  $("li.flow").Flow()
+$ -> $("li.flow").Flow()

@@ -2,6 +2,7 @@
 $font-size: 14px
 $green: #55C8B9
 $blue: #66CEF9
+$blue-light: #D1F0FD
 $green: #25B500
 $green-light: #4EC6AB
 
@@ -11,6 +12,7 @@ body, html
 
 body, input, select, textarea
   font-family: "PT sans", "Helvetica Neue", helvetica, sans-serif
+  font-size: $font-size
 
 body
   font-size: $font-size
@@ -102,8 +104,6 @@ footer
   a
     color: #333
 
-
-
 div.content
   margin-top: 50px
   min-height: 400px // remove at some point
@@ -123,6 +123,26 @@ div.content
     width: 100%
     margin-bottom: 100px
 
+    .edit, .delete, .cancel, .submit
+      background-color: transparent
+      background-image: asset-url('pen.png')
+      background-repeat: no-repeat
+      border: none
+      width: 20px
+      background-size: 20px
+      display: inline-block
+      overflow: hidden
+      text-indent: 40px
+      display: inline-block
+
+    .delete
+      background-image: asset-url('trash.png')
+    .cancel
+      background-image: asset-url('x.png')
+    .submit
+      cursor: pointer
+      background-image: asset-url('confirm.png')
+
     .title-wrap
       position: relative
       display: block
@@ -135,18 +155,43 @@ div.content
           border: 0px
 
         // height: $font-size * 1.2
-        border: 1px solid #CCC
+        // border: 1px solid #CCC
 
         .small-tools
           display: none
           font-size: $font-size
+          input
+            font-size: $font-size * 1.2
 
 
-      &:hover
+    // flow
+    &.editable
+      // background-image: asset-url('pen.png')
+      // background-position: top left
+      // background-repeat: no-repeat
+      // background-size: 15px 15px
+
+      // #flow_name
+      //   margin-left: 20px
+
+      .inner
+        input, textarea, label
+          border: none
+          background-color: #F2F2F2
+          margin-left: 15px
+          margin-right: 15px
+          padding: 0px
+          width: 90%
+          padding-left: 3px
+          padding-right: 3px
+        label, input[type=checkbox]
+          width: auto
+          border: none
+          background-color: transparent
+
+      .title-wrap
         .small-tools
           display: inline-block
-          input
-            font-size: $font-size
 
     .errors
       ul, li
@@ -199,6 +244,15 @@ div.content
           left: 6px
           top: 6px
 
+        .arrow-right
+          position: absolute
+          top: 0px
+          right: -4px
+          width: 0
+          height: 0
+          border-top: 10px solid transparent
+          border-bottom: 10px solid transparent
+          border-left: 10px solid $blue
 
         h2, .name
           font-weight: normal
@@ -211,9 +265,16 @@ div.content
           padding-top: 3px
 
         .inner
+          min-height: 70px
           margin-top: 7px
           display: block
           border-top: 6px solid $blue
+
+          .inner-dummy
+            display: none
+            text-align: center
+            a
+              color: $blue
 
         .details
           background-color: $blue
@@ -221,7 +282,8 @@ div.content
           display: none
           top: 10px
           z-index: 9
-          padding: 10px
+          padding-left: 0px
+          padding-right: 0px
           padding-top: 3px
           color: #333
           box-shadow: 2px 2px 3px #CCC
@@ -232,7 +294,56 @@ div.content
           -moz-border-radius-bottomleft: 3px
           border-bottom-right-radius: 3px
           border-bottom-left-radius: 3px
+          width: 100%
 
+          .actions
+            background-color: #888
+            height: 30px
+            display: block
+            margin-top: 10px
+
+            a
+              color: black
+              text-transform: uppercase
+              display: inline-block
+              height: 30px
+              line-height: 30px
+              margin-right: 10px
+
+            a.done
+              background-image: asset-url('confirm.png')
+              background-size: 20px
+              background-position: left center
+              background-repeat: no-repeat
+              text-indent: 25px
+              float: right
+
+        .delete
+          float: right
+        .remove-magic
+          display: none
+
+        &.dummy
+          .inner
+            padding-top: 2px
+            border-top: 6px solid $blue-light
+            .inner-content
+              display: none
+            .inner-dummy
+              display: block
+          .arrow-right
+            border-left: 10px solid $blue-light
+          .dot
+            background-color: $blue-light
+
+.flows
+  li.flow:not(.editable)
+    &:hover
+      .small-tools
+        display: inline-block
+
+    .steps
+      .step
         &.done
           .dot
             background-color: $green

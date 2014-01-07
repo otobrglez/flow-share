@@ -1,6 +1,8 @@
 !!!
 %head
   %title FlowShare
+  %meta{charset: "utf-8"}/
+
   = stylesheet_link_tag    "application", media: "all"
   = javascript_include_tag "application"
   = csrf_meta_tags
@@ -19,9 +21,7 @@
     .wrap
       %ul
         %li=link_to "+ New Flow", [:new, :flow], remote: true, class: "new-flow"
-        %li=link_to "My Flows", root_path, class: "active"
-        %li=link_to "Fika v2"
-        %li=link_to "Dog training"
+        %li=link_to "My Flows", [:flows], class: "active"
 
   .content
     .wrap

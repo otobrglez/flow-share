@@ -1,9 +1,9 @@
 .flows
   %ul
     - if @flow.present? and @flow.new_record?
-      %li.flow.new
+      %li.flow.editable
         = render "flow", flow: @flow
 
     - (@flows || flows).each do |flow|
-      %li.flow
+      %li.flow{class: (flow==@flow ? "editable" : "")}
         =render flow, flow: flow

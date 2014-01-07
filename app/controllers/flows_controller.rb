@@ -9,6 +9,7 @@ class FlowsController < ApplicationController
   def new
     @flow = Flow.new
     @flow.steps.build(name: "Step 1")
+
     @flows = Flow.all
 
     respond_with @flow
@@ -34,6 +35,7 @@ class FlowsController < ApplicationController
 
   def edit
     @flow = Flow.find(params[:id])
+
     @flows = Flow.all
 
     render "index"
@@ -51,10 +53,12 @@ class FlowsController < ApplicationController
     render "index"
   end
 
+
+
   private
 
   def flow_params
-    params.require(:flow).permit(:id, :name, steps_attributes: [:id, :flow_id, :name])
+    params.require(:flow).permit(:id, :name, steps_attributes: [:id, :flow_id, :name, :comment, :_destroy])
   end
 
 
