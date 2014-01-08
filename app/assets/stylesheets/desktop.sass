@@ -114,7 +114,7 @@ div.content
       background-color: transparent
       background-image: asset-url('pen.png')
       background-repeat: no-repeat
-      background-position: center center
+      background-position: bottom center
       background-size: 19px
 
       border: none
@@ -123,6 +123,9 @@ div.content
       overflow: hidden
       text-indent: 40px
       display: inline-block
+
+    .submit
+      background-position: top left
 
     .delete
       background-image: asset-url('trash.png')
@@ -249,7 +252,6 @@ div.content
           width: 100%
           overflow-y: hidden
           border-top: 6px solid $blue
-          // background-color: pink
 
           .inner-dummy
             display: none
@@ -289,19 +291,15 @@ div.content
 
             p
               padding: 5px
-
             a
               color: black
               text-transform: uppercase
               display: inline-block
-              // height: 30px
-              // line-height: 30px
               margin-right: 5px
-
             a.done
               background-image: asset-url('confirm.png')
               background-size: 20px
-              background-position: left center
+              background-position: bottom left
               background-repeat: no-repeat
               text-indent: 25px
               float: right
