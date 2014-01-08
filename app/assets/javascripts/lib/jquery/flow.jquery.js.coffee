@@ -10,8 +10,11 @@
 
       # Set width of inputs
       @set_name_width()
+
+      # Scale input as you type
       @$el.find("#flow_name").keydown (event)=> @set_name_width()
 
+      # Removing items
       @$el.on "click", "a.step_remove", (event)=> @remove_step(event)
 
       # Focus on name field
@@ -21,13 +24,14 @@
       @mark_last_step()
 
       # Apend first blank step
-      if @is_editable()
-        @append_blank_step()
+      @append_blank_step() if @is_editable()
+
+      # Sorting of steps
+      @$el.find(".steps .step").sortable()
 
 
     focus_name: ->
       return false unless @is_editable()
-
       @$el.find("#flow_name").focus().val(@$el.find("#flow_name").val());
 
     set_name_width: ->
@@ -48,14 +52,10 @@
       step
 
     fix_numbering: ->
-      # Needed for input fields to work nicely
-
-      # $(".flow:first input[id!=flow_name][name!=commit][name!=utf8][name!=_method], .flow:first textarea")
       @$el.find(".step:not(.blank)").each (index, element)->
-        $(element).find(".step_name").attr("name", "flow[steps_attributes][#{index}][name]")
-        $(element).find(".step_comment").attr("name", "flow[steps_attributes][#{index}][comment]")
-        $(element).find(".step_destroy").attr("name", "flow[steps_attributes][#{index}][_destroy]")
-
+        $(element).find(".step_name").attr    "name", "flow[steps_attributes][#{index}][name]"
+        $(element).find(".step_comment").attr "name", "flow[steps_attributes][#{index}][comment]"
+        $(element).find(".step_destroy").attr "name", "flow[steps_attributes][#{index}][_destroy]"
       @mark_last_step()
 
     append_blank_step: ->
@@ -64,10 +64,8 @@
       if number_of_nonblanks >= 4
         @$el.find(".steps").append(
           '<div class="row">
-            <div class="step blank">&nbsp;</div>
-            <div class="step blank">&nbsp;</div>
-            <div class="step blank">&nbsp;</div>
-            <div class="step blank">&nbsp;</div>
+            <div class="step blank">&nbsp;</div><div class="step blank">&nbsp;</div>
+            <div class="step blank">&nbsp;</div><div class="step blank">&nbsp;</div>
           </div>')
 
       step_to_replace = @$el.find(".row:last .step.blank:first")
@@ -95,8 +93,7 @@
 
     mark_last_step: ->
       @$el.removeClass("last-step")
-      last = @$el.find(".step:not(.dummy):not(.blank):last")
-      last.addClass("last-step")
+      @$el.find(".step:not(.dummy):not(.blank):last").addClass("last-step")
 
   $.fn.extend Flow: (option, args...) ->
     @each ->
