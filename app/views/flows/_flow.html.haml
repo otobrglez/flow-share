@@ -62,5 +62,6 @@
                 - if step.completed?
                   ="Completed #{time_ago_in_words(step.updated_at)} ago."
                 - else
-                  =link_to "Done", "#step_done", class: [:done, :step_done]
+                  -if step.id.present?
+                    =link_to "Done", flow_step_complete_path(flow, step), remote:true, class: [:done, :step_done]
 

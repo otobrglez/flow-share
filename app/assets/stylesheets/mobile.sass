@@ -1,7 +1,6 @@
 @import "colors"
 
 @media only screen and (max-width: 500px)
-
   .flows
     li.flow
       margin-bottom: 0px
@@ -40,15 +39,26 @@
             .inner
               border-left: 6px solid transparent
 
+
           .inner
             margin-left: 6px
             border-top: 6px solid transparent
             border-left: 6px solid $blue
-
             padding-left: 10px
+
+          &.done
+            .inner
+              border: none
+              border-top: 6px solid transparent
+              border-left: 6px solid $green-light
 
         .step.dummy
           .inner
             border-top: none
             border-left: 6px solid transparent
+
+
+    li.flow:not(.editable) .steps .step.done .inner
+      border-top: 6px solid transparent
+
 

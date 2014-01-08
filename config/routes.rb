@@ -3,7 +3,9 @@ FlowShare::Application.routes.draw do
   root "flows#index"
 
   resources :flows do
-    resources :steps, only: [:destroy]
+    resources :steps, only: [:complete] do
+      get 'complete'
+    end
   end
 
 
