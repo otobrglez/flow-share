@@ -24,46 +24,39 @@
     - if flow == @flow
       - flow = @flow
 
-    - flow.steps.in_groups_of(4) do |group|
-      .row
-        - group.each do |step|
-          - unless step.nil?
-            .step{ class: step.completed? ? "done" : "" }
-              = f.fields_for :steps, step do |b|
-                .dot=raw "&nbsp;"
-                .dot-inner=raw "&nbsp;"
-                .dot-small=raw "&nbsp;"
-                .arrow-right=raw "&nbsp;"
+    - flow.steps.each do |step|
+      .step{ class: step.completed? ? "done" : "" }
+        = f.fields_for :steps, step do |b|
+          .dot=raw "&nbsp;"
+          .dot-inner=raw "&nbsp;"
+          .dot-small=raw "&nbsp;"
+          .arrow-right=raw "&nbsp;"
 
-                .inner
-                  .inner-content
-                    - if f.object == @flow
-                      = b.text_field :name, placeholder: "Step (required)", class: :step_name
-                      = b.text_area :comment, placeholder: "Comment (optional)", class: :step_comment
+          .inner
+            .inner-content
+              - if f.object == @flow
+                = b.text_field :name, placeholder: "Step (required)", class: :step_name
+                = b.text_area :comment, placeholder: "Comment (optional)", class: :step_comment
 
-                      .remove-magic
-                        = b.check_box :_destroy, class: :step_destroy
+                .remove-magic
+                  = b.check_box :_destroy, class: :step_destroy
 
-                      = link_to "Remove", "#step_remove", class: %w{delete step_remove}, confirm: "Are you sure?"
-                    -else
-                      %h2=step
+                = link_to "Remove", "#step_remove", class: %w{delete step_remove}, confirm: "Are you sure?"
+              -else
+                %h2=step
 
-                  .inner-dummy
-                    %p
-                      %br/
-                      =link_to "Add step", "#new_step", class: :step_add
+            .inner-dummy
+              %p
+                %br/
+                =link_to "Add step", "#new_step", class: :step_add
 
-                .details
-                  .name=step
+          .details
+            .name=step
 
-                  - if step.comment.present?
-                    %p
-                      =step.comment
+            - if step.comment.present?
+              %p
+                =step.comment
 
-                  .actions
-                    %p
-
-                      =link_to "Done", "#step_done", class: [:done, :step_done]
-          - else
-            .step.blank
-              = raw("&nbsp;")
+            .actions
+              %p
+                =link_to "Done", "#step_done", class: [:done, :step_done]

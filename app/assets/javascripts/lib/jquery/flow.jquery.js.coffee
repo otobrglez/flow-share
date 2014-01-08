@@ -26,9 +26,17 @@
       # Apend first blank step
       @append_blank_step() if @is_editable()
 
-      # Sorting of steps
-      @$el.find(".steps .step").sortable()
+      # Fix numbers
+      @fix_numbering()
 
+      # When editing you can change sorting
+      if @is_editable()
+        @$el.find(".steps").sortable(
+          stop: (event, ui)=>
+            @mark_last_step()
+            #TODO: Other things go here.
+
+        ).disableSelection()
 
     focus_name: ->
       return false unless @is_editable()
@@ -41,11 +49,10 @@
       element.attr("size", size)
 
     is_editable: ->
-      @$el.hasClass("editable")
+      @$el.hasClass "editable"
 
     build_step: ->
       step = @$el.find(".step:first").clone()
-      #TODO: Reset values here
       step.find("input.step_name").val("")
       step.find(".step_comment").val("")
       step.find("input.step_destroy").prop('checked', false)
@@ -57,26 +64,23 @@
         $(element).find(".step_comment").attr "name", "flow[steps_attributes][#{index}][comment]"
         $(element).find(".step_destroy").attr "name", "flow[steps_attributes][#{index}][_destroy]"
       @mark_last_step()
+      @fix_height()
+
+    fix_height: ->
+      heights = @$el.find(".step").map (i,el)-> $(el).height()
+      return if heights.length == 0
+
+      max_height = heights[parseInt(Object.max(heights),10)]
+
+      @$el.find(".step").each (i,el)->$(el).css("height", max_height)
 
     append_blank_step: ->
-      number_of_nonblanks = @$el.find(".row:last .step:not(.blank)").length
-
-      if number_of_nonblanks >= 4
-        @$el.find(".steps").append(
-          '<div class="row">
-            <div class="step blank">&nbsp;</div><div class="step blank">&nbsp;</div>
-            <div class="step blank">&nbsp;</div><div class="step blank">&nbsp;</div>
-          </div>')
-
-      step_to_replace = @$el.find(".row:last .step.blank:first")
-
       new_step = @build_step().removeClass("blank").addClass("dummy")
-
       new_step.on "click", "a.step_add", (e)=>
         e.preventDefault() if e.preventDefault?
         @add_step()
 
-      step_to_replace.replaceWith new_step
+      @$el.find(".steps").append new_step
 
       @fix_numbering()
 
@@ -92,7 +96,7 @@
       input.parents("form").trigger("submit")
 
     mark_last_step: ->
-      @$el.removeClass("last-step")
+      @$el.find(".step").removeClass("last-step")
       @$el.find(".step:not(.dummy):not(.blank):last").addClass("last-step")
 
   $.fn.extend Flow: (option, args...) ->

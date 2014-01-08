@@ -1,0 +1,47 @@
+@import "colors"
+
+@media only screen and (max-width: 500px)
+
+  .flows
+    li.flow
+      margin-bottom: 0px
+
+      .steps
+        .step
+          height: auto
+          width: 100%
+          display: block
+
+          h2, .name
+            text-align: left
+          .name
+            padding-left: 22px
+
+
+          .arrow-right
+            right: inherit
+            top: inherit
+            bottom: -12px
+            left: -1px
+            border: none
+            border-bottom: 10px solid transparent
+            border-left: 10px solid transparent
+            border-top: 10px solid $blue
+            display: none
+
+          &.last-step
+            .arrow-right
+              right: inherit
+              top: inherit
+              bottom: -12px
+              left: -1px
+              background-color: red
+              display: none
+
+          .inner
+            margin-left: 6px
+            border-top: 6px solid transparent
+            border-left: 6px solid $blue
+
+            padding-left: 10px
+
