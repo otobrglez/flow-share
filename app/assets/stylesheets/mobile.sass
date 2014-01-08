@@ -7,6 +7,7 @@
       margin-bottom: 0px
 
       .steps
+
         .step
           height: auto
           width: 100%
@@ -35,8 +36,9 @@
               top: inherit
               bottom: -12px
               left: -1px
-              background-color: red
               display: none
+            .inner
+              border-left: 6px solid transparent
 
           .inner
             margin-left: 6px
@@ -44,4 +46,9 @@
             border-left: 6px solid $blue
 
             padding-left: 10px
+
+        .step.dummy
+          .inner
+            border-top: none
+            border-left: 6px solid transparent
 

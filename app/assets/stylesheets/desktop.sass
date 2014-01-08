@@ -114,9 +114,11 @@ div.content
       background-color: transparent
       background-image: asset-url('pen.png')
       background-repeat: no-repeat
+      background-position: center center
+      background-size: 19px
+
       border: none
       width: 20px
-      background-size: 20px
       display: inline-block
       overflow: hidden
       text-indent: 40px
@@ -149,13 +151,6 @@ div.content
 
     // flow
     &.editable
-      // background-image: asset-url('pen.png')
-      // background-position: top left
-      // background-repeat: no-repeat
-      // background-size: 15px 15px
-
-      // #flow_name
-      //   margin-left: 20px
 
       .inner
         input, textarea, label
@@ -230,7 +225,7 @@ div.content
         .arrow-right
           position: absolute
           top: 0px
-          right: -4px
+          right: -3px
           width: 0
           height: 0
           border-top: 10px solid transparent
@@ -293,15 +288,15 @@ div.content
             margin-top: 10px
 
             p
-              padding: 0px
+              padding: 5px
 
             a
               color: black
               text-transform: uppercase
               display: inline-block
-              height: 30px
-              line-height: 30px
-              margin-right: 10px
+              // height: 30px
+              // line-height: 30px
+              margin-right: 5px
 
             a.done
               background-image: asset-url('confirm.png')
@@ -322,7 +317,7 @@ div.content
             border-top: 6px solid $blue-light
             .inner-content
               visibility: hidden
-              // display: none
+              display: none
             .inner-dummy
               display: block
           .arrow-right
@@ -332,7 +327,7 @@ div.content
 
 .flows
   li.flow:not(.editable)
-    &:hover
+    &:hover, &.hover
       .small-tools
         display: inline-block
 
@@ -345,8 +340,10 @@ div.content
             background-color: $green
           .inner
             border-top: 6px solid $green-light
+          .arrow-right
+            border-left: 10px solid $green-light
 
-        &:hover
+        &:hover, &.hover
           z-index: 3
           .dot-small
             display: block
