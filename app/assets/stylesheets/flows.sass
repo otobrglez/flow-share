@@ -1,0 +1,276 @@
+@import "colors"
+
+.flows
+  a
+    text-decoration: none
+
+  ul, li
+    list-style: none
+    margin: 0px
+    padding: 0px
+
+  li.flow
+    display: block
+    position: relative
+    width: 100%
+    margin-bottom: 50px
+
+    .edit, .delete, .cancel, .submit, .share
+      background-color: transparent
+      background-image: asset-url('pen.png')
+      background-repeat: no-repeat
+      background-position: bottom center
+      background-size: 19px
+
+      border: none
+      width: 20px
+      display: inline-block
+      overflow: hidden
+      text-indent: 40px
+      display: inline-block
+
+    .submit
+      background-position: top left
+
+    .delete
+      background-image: asset-url('trash.png')
+    .cancel
+      background-image: asset-url('x.png')
+    .submit
+      cursor: pointer
+      background-image: asset-url('confirm.png')
+    .share
+      background-image: asset-url('group.png')
+
+    .title-wrap
+      position: relative
+      display: block
+
+      .title
+        input[type=text], h1
+          margin: 0px
+          padding: 0px
+          font-size: $font-size * 1.6
+          border: 0px
+        .small-tools
+          display: none
+          font-size: $font-size
+          input
+            font-size: $font-size * 1.2
+
+
+    // flow
+    &.editable
+
+      .inner
+        input, textarea, label
+          border: none
+          background-color: #F2F2F2
+          margin-left: 15px
+          margin-right: 15px
+          padding: 0px
+          width: 90%
+          padding-left: 3px
+          padding-right: 3px
+        label, input[type=checkbox]
+          width: auto
+          border: none
+          background-color: transparent
+
+      .title-wrap
+        .small-tools
+          display: inline-block
+
+    .errors
+      ul, li
+        list-style: none
+        margin: 0px
+        padding: 0px
+        color: red
+
+    .steps
+      display: block
+      position: relative
+      width: 100%
+      border-collapse: collapse
+      vertical-align: text-top
+      overflow: hidden
+      padding-bottom: 50px
+
+      .step
+        display: block
+        float: left
+        position: relative
+        z-index: 1
+        width: 24%
+
+        p
+          margin: 0px
+          padding: 0px
+
+        .dot, .dot-inner, .dot-small
+          border-radius: 50%
+          width: 20px
+          height: 20px
+          background-color: $blue
+          position: absolute
+          top: 0px
+          left: 0px
+          z-index: 10
+
+        .dot-inner
+          background-color: white
+          width: 14px
+          height: 14px
+          left: 3px
+          top: 3px
+
+        .dot-small
+          display: none
+          width: 8px
+          height: 8px
+          left: 6px
+          top: 6px
+
+        .arrow-right
+          position: absolute
+          top: 0px
+          right: -3px
+          width: 0
+          height: 0
+          border-top: 10px solid transparent
+          border-bottom: 10px solid transparent
+          border-left: 10px solid $blue
+
+        h2, .name
+          font-weight: normal
+          font-size: $font-size
+          text-align: center
+          color: #444
+          margin: 0px
+          padding: 0px
+          display: block
+          padding-top: 3px
+
+        .inner
+          min-height: 70px
+          margin-top: 7px
+          display: block
+          width: 100%
+          overflow-y: hidden
+          border-top: 6px solid $blue
+
+          .inner-dummy
+            display: none
+            text-align: center
+            a
+              color: $blue
+
+        .details
+          background-color: $blue
+          position: absolute
+          display: none
+          top: 10px
+          z-index: 9
+          padding-left: 0px
+          padding-right: 0px
+          padding-top: 3px
+          color: #333
+          box-shadow: 2px 2px 3px #CCC
+          font-size: $font-size - 2
+          -webkit-border-bottom-right-radius: 3px
+          -webkit-border-bottom-left-radius: 3px
+          -moz-border-radius-bottomright: 3px
+          -moz-border-radius-bottomleft: 3px
+          border-bottom-right-radius: 3px
+          border-bottom-left-radius: 3px
+          width: 100%
+
+          p
+            padding: 5px
+            font-size: $font-size
+
+          .actions
+            background-color: #888
+            height: 30px
+            display: block
+            margin-top: 10px
+
+            p
+              padding: 5px
+            a
+              color: black
+              text-transform: uppercase
+              display: inline-block
+              margin-right: 5px
+            a.done
+              background-image: asset-url('confirm.png')
+              background-size: 20px
+              background-position: bottom left
+              background-repeat: no-repeat
+              text-indent: 25px
+              float: right
+
+        .delete
+          float: right
+        .remove-magic
+          display: none
+
+        &.dummy
+          .inner
+            padding-top: 2px
+            border-top: 6px solid $blue-light
+            .inner-content
+              visibility: hidden
+              display: none
+            .inner-dummy
+              display: block
+          .arrow-right
+            border-left: 10px solid $blue-light
+          .dot
+            background-color: $blue-light
+
+.flows
+  li.flow:not(.editable)
+    &:hover, &.hover
+      .small-tools
+        display: inline-block
+
+    .steps
+      .step
+        &.done
+          .dot
+            background-color: $green
+          .dot-inner
+            background-color: $green
+          .inner
+            border-top: 6px solid $green-light
+          .arrow-right
+            border-left: 10px solid $green-light
+
+        &:hover, &.hover
+          z-index: 3
+          .dot-small
+            display: block
+
+          &.done
+            .dot-small
+              background-color: white
+            .details
+              background-color: $green-light
+
+          .details
+            display: block
+
+        &.last-step
+          .arrow-right
+            border: none
+            border-radius: 50%
+            background-color: $blue
+            position: absolute
+            top: 3px
+            z-index: 10
+            width: 14px
+            height: 14px
+            right: -1px
+

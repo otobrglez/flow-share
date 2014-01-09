@@ -1,0 +1,35 @@
+!!!
+%head
+  = render "layouts/header"
+
+%body.base
+  %header
+    .wrap
+      =link_to "FlowShare", root_path, class: "logo"
+      .who
+        .inner
+          =image_tag avatar_url(current_user), class: "avatar"
+          =link_to current_user, edit_user_registration_path
+          |
+          =link_to "Log out", destroy_user_session_path, method: :delete
+
+  %nav
+    .wrap
+      %ul
+        %li=link_to "+ New Flow", [:new, :flow], remote: true, class: "new-flow"
+        %li=link_to "My Flows", [:flows], class: "active"
+
+  .content
+    .wrap
+      .live
+        - flash.each do |name, msg|
+          = content_tag :div, msg, id: "flash_#{name}" if msg.is_a?(String)
+
+        = yield
+
+  %footer
+    .wrap
+      %ul
+        %li=link_to raw("&copy;")+" 2014 - Fika, Inc"
+
+

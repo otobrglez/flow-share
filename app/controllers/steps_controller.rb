@@ -1,4 +1,4 @@
-class StepsController < ApplicationController
+class StepsController < BaseController
 
   respond_to :js
 

@@ -3,9 +3,10 @@
   .title-wrap
     .title
       - if f.object == @flow # and not(@flow.persisted?)
-        = f.text_field :name, placeholder: "New Flow"
+        = f.text_field :name, placeholder: "New Flow", size: 20
         .small-tools
           = link_to "Cancel", [:flows], remote: true, class: :cancel
+          = link_to "Sharing", "#step_share", class: %w{share step_share}
           = f.submit class: :submit
       - else
         %h1

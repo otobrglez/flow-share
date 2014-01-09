@@ -1,12 +1,19 @@
 FlowShare::Application.routes.draw do
 
-  root "flows#index"
+  devise_for :users, controllers: {
+    registrations: "registrations"
+#    confirmations: "confirmations"
+  }
+
+  root "welcome#index"
 
   resources :flows do
     resources :steps, only: [:complete] do
       get 'complete'
     end
   end
+
+  get '/validate_email' => "welcome#validate_email"
 
 
   # The priority is based upon order of creation: first created -> highest priority.

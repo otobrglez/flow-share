@@ -3,6 +3,7 @@ bin/
 /ssl-cert
 /NOTES.*
 
+/*.s3
 /server.*
 /*.pdf
 /*.gv

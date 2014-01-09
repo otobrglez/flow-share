@@ -25,6 +25,10 @@ gem 'chronic'
 
 gem 'rails-i18n', '~> 4.0.0'
 
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+
 group :doc do
   gem 'sdoc', require: false
 end
@@ -51,6 +55,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'foreman'
+
+  gem 'quiet_assets'
 end
 
 group :development, :test do
@@ -69,8 +75,8 @@ group :development, :test do
   gem 'debugger'
 end
 
+
 gem 'rails_12factor', group: :production
-
-
 gem 'heroku'
+
 

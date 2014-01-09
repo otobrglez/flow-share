@@ -1,0 +1,114 @@
+@import "colors"
+
+body, html
+  margin: 0px
+  padding: 0px
+
+body, input, select, textarea
+  font-family: "PT sans", "Helvetica Neue", helvetica, sans-serif
+  font-size: $font-size
+
+a
+  color: black
+  text-decoration: none
+  &:hover, &.active
+    text-decoration: underline
+
+h1, h2, h3
+  font-weight: normal
+  margin-bottom: 0px
+h1
+  font-size: $font-size * 1.6
+h2
+  font-size: $font-size * 1.4
+
+header, nav, .content, footer
+  display: block
+  position: relative
+  width: 100%
+  .wrap
+    margin: 0px auto
+    max-width: 900px
+    position: relative
+    padding-left: 10px
+    padding-right: 10px
+
+header
+  height: 50px
+  line-height: 20px
+
+  .wrap
+    padding-top: 15px
+  .who
+    position: absolute
+    display: inline-block
+    right: 10px
+    font-size: $font-size
+
+    .inner
+      position: relative
+      padding-left: 25px
+      img.avatar
+        position: absolute
+        left: 0px
+        width: 20px
+
+  a.logo
+    font-size: $font-size * 1.4
+    &:hover
+      text-decoration: none
+
+nav
+  background-color: #F4F4F4
+  height: 40px
+  line-height: 40px
+  font-size: $font-size * 1.2
+
+  ul, li
+    list-style: none
+    margin: 0px
+    padding: 0px
+
+  li
+    float: left
+    margin-right: 10px
+    &:first-child a
+      padding-left: 0px
+  a
+    display: inline-block
+    padding-left: 10px
+    padding-right: 10px
+
+    &:active, &.active, &:hover.active
+      background-color: white
+      text-decoration: none
+    &:hover
+      background-color: #EEE
+    &.new-flow
+      background-color: transparent
+
+
+
+footer
+  color: #333
+  ul, li
+    list-style: none
+    margin: 0px
+    padding: 0px
+  a
+    color: #333
+
+
+
+div.content
+  margin-top: 50px
+  min-height: 400px // remove at some point
+
+body.public
+
+  header
+    margin-top: 50px
+    background-color: #F1F1F1
+
+
+

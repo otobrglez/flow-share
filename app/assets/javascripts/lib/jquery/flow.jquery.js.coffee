@@ -45,7 +45,7 @@
     set_name_width: ->
       element = @$el.find("#flow_name")
       text = element.val() || ""
-      size = if text.length+3 < 10 then 10 else (text.length+3)
+      size = if text.length+3 < 20 then 20 else (text.length+3)
       element.attr("size", size)
 
     is_editable: ->
@@ -97,7 +97,11 @@
 
     mark_last_step: ->
       @$el.find(".step").removeClass("last-step")
-      @$el.find(".step:not(.dummy):not(.blank):last").addClass("last-step")
+      @$el.find(".step:not(.dummy):not(.blank):last")
+        .addClass("last-step")
+
+      if @$el.find(".step:not(.dummy)").length > 1
+        @$el.find(".step:not(.dummy):last input.step_name").focus()
 
   $.fn.extend Flow: (option, args...) ->
     @each ->

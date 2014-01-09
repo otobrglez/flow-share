@@ -3,4 +3,7 @@ class Step < ActiveRecord::Base
 
   belongs_to :flow
 
+  belongs_to :creator, class_name: "User"
+
+
 end

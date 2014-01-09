@@ -1,54 +1,58 @@
-class FlowsController < ApplicationController
+class FlowsController < BaseController
 
   respond_to :html, :js
 
   def index
-    respond_with @flows=Flow.all
+    respond_with @flows=current_user.flows
   end
 
   def new
-    @flow = Flow.new
+    @flows = current_user.flows
+
+    @flow = Flow.new(creator: current_user)
     @flow.steps.build(name: "Step 1")
 
-    @flows = Flow.all
 
-    respond_with @flow
+    respond_with @flows
   end
 
   def create
-    @flow = Flow.new(flow_params)
+    @flow = current_user.owned_flows.build(
+      flow_params.reverse_merge!(creator_id: current_user.id)
+    )
+
     if @flow.save
       @flow = nil
     end
 
-    @flows = Flow.all
+    @flows = current_user.flows
 
     render "index"
   end
 
   def destroy
-    @flow = Flow.find(params[:id])
+    @flow = current_user.flows.find(params[:id])
     @flow.destroy
 
-    @flows = Flow.all
+    @flows = current_user.flows
   end
 
   def edit
-    @flow = Flow.find(params[:id])
+    @flow = current_user.flows.find(params[:id])
 
-    @flows = Flow.all
+    @flows = current_user.flows
 
     render "index"
   end
 
   def update
-    @flow = Flow.find(params[:id])
+    @flow = current_user.flows.find(params[:id])
 
     if @flow.update(flow_params)
       @flow = nil
     end
 
-    @flows = Flow.all
+    @flows = current_user.flows
 
     render "index"
   end
