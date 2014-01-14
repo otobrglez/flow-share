@@ -15,7 +15,3 @@
         %label
           Full name
           %input{type: "text", value: @full_name }
-      %li
-        %label
-          Email
-          %input{type: "email", value: @email }
