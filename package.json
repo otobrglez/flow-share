@@ -1,6 +1,7 @@
 {
   "name": "flow-share",
-  "dependencies": {
+	"version": "0.0.1",
+	"dependencies": {
     "bower": "1.2.x"
   },
 

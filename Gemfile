@@ -40,7 +40,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# gem 'unicorn'
+gem 'unicorn'
 # gem 'capistrano', group: :development
 
 group :test do
