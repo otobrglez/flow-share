@@ -1,0 +1,14 @@
+.popup-title
+  %h2
+    Share:
+    = @name
+
+.popup-tools.top
+  %a.popup_close{href: "#popup_close"} Close
+
+.inner-wrap
+  %form{action: "#"}
+    %input#query
+
+  .list
+    %ul.users-list

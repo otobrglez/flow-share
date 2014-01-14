@@ -1,0 +1,21 @@
+.popup-title
+  %h2 Profile settings
+
+.popup-tools.top
+  %a.popup_close{href: "#popup_close"} Close
+
+.inner-wrap
+  %form{action: "#"}
+    %ul
+      %li
+        %label
+          Username
+          %input{type: "text", readonly: "true", value: @name }
+      %li
+        %label
+          Full name
+          %input{type: "text", value: @full_name }
+      %li
+        %label
+          Email
+          %input{type: "email", value: @email }

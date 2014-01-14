@@ -1,0 +1,6 @@
+%strong.name= @user.name
+%span.role= @role
+
+.flow_access-tools
+  %a.flow_access-destroy{href: "flow_access-destroy"} Remove
+

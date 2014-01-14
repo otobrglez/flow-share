@@ -14,7 +14,7 @@ class WelcomeController < ApplicationController
 
   def redirect_signed
     if user_signed_in?
-      redirect_to flows_path
+      redirect_to app_url
     end
   end
 

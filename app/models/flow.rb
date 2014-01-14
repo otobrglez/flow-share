@@ -3,13 +3,12 @@ class Flow < ActiveRecord::Base
 
   belongs_to :creator, class_name: "User"
 
-  has_many :flow_accesses, foreign_key: :flow_id
+  has_many :flow_accesses, ->{ order({role: :desc, updated_at: :desc}) }, foreign_key: :flow_id, dependent: :destroy
   has_many :users, through: :flow_accesses
 
+  has_many :steps, dependent: :destroy
 
-  has_many :steps, -> { order(id: :asc) }, dependent: :destroy
-
-  default_scope -> { order(id: :desc) }
+  # default_scope -> { order(id: :desc) }
 
   validates :name, presence: true
 

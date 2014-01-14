@@ -7,14 +7,25 @@ FlowShare::Application.routes.draw do
 
   root "welcome#index"
 
-  resources :flows do
-    resources :steps, only: [:complete] do
-      get 'complete'
+  get '/app' => "base#app"
+  get '/flows', to: redirect("/app")
+
+
+  namespace :api do
+    resources :flows, only: [:create, :update, :destroy, :index, :show] do
+      resources :steps, only: [:create, :update, :destroy, :complete] do
+        get 'complete', on: :member
+      end
+
+      resources :flow_accesses, only: [:create, :destroy, :show]
+    end
+
+    resources :users, only: [:search] do
+      get 'search', on: :collection
     end
   end
 
   get '/validate_email' => "welcome#validate_email"
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

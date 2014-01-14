@@ -1,0 +1,20 @@
+{
+  "name": "flow-share",
+  "lib": {
+    "name": "bower-rails generated lib assets",
+    "dependencies": {
+    }
+  },
+  "vendor": {
+    "name": "bower-rails generated vendor assets",
+    "dependencies": {
+      "sugar": "*",
+      "normalize-css": "*",
+      "marionette": "*",
+      "backbone.stickit": "*",
+      "backbone-validation": "*",
+      "crypto-js": "*",
+      "select2": "*"
+    }
+  }
+}

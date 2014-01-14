@@ -1,11 +1,19 @@
 class User < ActiveRecord::Base
+  include PgSearch
+
+  pg_search_scope :search_name,
+    :against => [:username, :full_name],
+    :using => [ :tsearch ], # :dmetaphone:trigrams
+    :ignoring => :accents
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+
   has_many :flow_accesses, foreign_key: :user_id
-  has_many :flows, through: :flow_accesses
+  has_many :flows, -> { order("flows.updated_at DESC") }, through: :flow_accesses
 
   has_many :owned_flows, foreign_key: :creator_id, dependent: :destroy, class_name: "Flow"
 

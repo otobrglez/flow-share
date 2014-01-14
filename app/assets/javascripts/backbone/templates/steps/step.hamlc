@@ -1,0 +1,10 @@
+%div.step_name{contenteditable: "true"}
+%div.step_comment
+
+.step-tools
+  %a.step_move{href:"#move"} Move
+  |
+  %a.step_destroy{href:"#step_destroy"} Delete
+
+
+%div.step_row_order{style: "display: none"}

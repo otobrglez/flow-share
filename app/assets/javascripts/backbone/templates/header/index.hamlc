@@ -1,0 +1,8 @@
+.wrap
+  %a{href: "app", class: "logo"} FlowShare
+  .who
+    .inner
+      %img.avatar{src: @avatar_url}
+      %a.profile_edit{href:"#profile_edit"}= @name
+      |
+      %a{href:"users/sign_out", "data-method": "delete"} Log out

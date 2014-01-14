@@ -1,0 +1,5 @@
+%a.error_close{href:"#error_close"}
+  = @message
+
+  .error-tools
+    x

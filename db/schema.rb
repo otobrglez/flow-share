@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109153632) do
+ActiveRecord::Schema.define(version: 20140113210244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "flow_accesses", force: true do |t|
     t.integer  "flow_id",                        null: false
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140109153632) do
     t.datetime "updated_at"
     t.text     "comment"
     t.integer  "completed",  default: 0, null: false
+    t.integer  "row_order"
   end
 
   add_index "steps", ["flow_id"], name: "index_steps_on_flow_id", using: :btree
