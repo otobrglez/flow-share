@@ -1,8 +1,13 @@
 {
   "name": "flow-share",
 	"version": "0.0.1",
+  "engines": {
+    "node": "v0.10.x"
+  },
 	"dependencies": {
-    "bower": "1.2.x"
+    "bower": "1.2.x",
+    "express": "*",
+    "logfmt": "*"
   },
 
   "scripts": {
