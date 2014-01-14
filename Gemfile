@@ -42,9 +42,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'unicorn'
-# gem 'capistrano', group: :development
-
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
@@ -84,6 +81,9 @@ group :development, :test do
   gem 'debugger'
 end
 
+gem 'asset_sync'
+
+gem 'unicorn'
 
 gem 'rails_12factor', group: :production
 gem 'heroku'
