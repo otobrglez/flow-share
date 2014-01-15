@@ -1,8 +1,7 @@
 class Api::UsersController < Api::BaseController
 
   def search
-    @users = User.search_name(search_params["query"])
-    respond_with @users
+    respond_with @users = User.search_name(search_params["query"])
   end
 
   private

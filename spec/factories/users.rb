@@ -8,5 +8,7 @@ FactoryGirl.define do
     username { generate(:username) }
     password 'testtest'
     password_confirmation { password }
+
+    after(:create){ |user| user.confirm! }
   end
 end

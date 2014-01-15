@@ -1,15 +1,13 @@
 class Api::StepsController < Api::BaseController
 
-  def complete
-    step.update(completed: 1)
-    respond_with step
+  def create
+    @step = flow.steps.create(step_params)
+    respond_with @step, location: [:api, flow, @step], status: :created
   end
 
-  def create
-    @flow = Flow.find(params[:flow_id]) # UNSECURE
-    @step = @flow.steps.create(step_params)
-
-    respond_with @step, location: [:api, @flow, @step], status: :created
+  def complete
+    step.complete!(current_user)
+    respond_with step
   end
 
   def update
@@ -28,8 +26,12 @@ class Api::StepsController < Api::BaseController
     params.require(:step).permit(:id, :name, :comment, :row_order_position)
   end
 
+  def flow
+    @flow ||= current_user.flows.find(params[:flow_id])
+  end
+
   def step
-    @step ||= Step.find_by(flow_id: params[:flow_id], id: params[:id])
+    @step ||= flow.steps.find(params[:id])
   end
 
 end

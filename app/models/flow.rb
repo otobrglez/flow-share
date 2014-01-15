@@ -10,10 +10,17 @@ class Flow < ActiveRecord::Base
 
   validates :name, presence: true
 
-  after_create ->{ create_flow_access! creator }
+  after_create ->{ create_flow_access!(creator, role: "creator") }
 
   def create_flow_access! other_user, options={role: "collaborator"}
+    other_user = User.find(other_user[:user_id]) unless other_user.is_a?(User)
     flow_accesses.create!({user: other_user}.reverse_merge!(options))
+  end
+
+  def destroy_flow_access! flow_access_id
+    flow_access = flow_accesses.find(flow_access_id)
+    status = flow_access.destroy
+    [flow_access, status]
   end
 
 end
