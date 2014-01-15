@@ -38,6 +38,11 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'fog' #, github: 'fog/fog', branch: 'master'
+
+
 group :doc do
   gem 'sdoc', require: false
 end

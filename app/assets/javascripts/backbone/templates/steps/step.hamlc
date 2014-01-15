@@ -2,9 +2,16 @@
 %div.step_comment
 
 .step-tools
-  %a.step_move{href:"#move"} Move
+  %a.r.step_move{href:"#move"} Move
   |
-  %a.step_destroy{href:"#step_destroy"} Delete
+  %a.r.step_destroy{href:"#step_destroy"} Delete
+  |
 
+  -#
+    %a.r.step_add_photo{href:"#step_add_image"} Add Photo
+    |
+  %a.r.step_add_files{href:"#step_add_file"} Add Files
 
 %div.step_row_order{style: "display: none"}
+
+%input.step_files{type:"file", name:"files[]", "data-url": "server/php/", multiple: "true"}

@@ -14,3 +14,4 @@ end
 json.flow_accesses flow.flow_accesses do |flow_access|
   json.partial! 'api/flow_accesses/flow_access', flow_access: flow_access
 end
+

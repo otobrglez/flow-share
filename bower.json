@@ -8,7 +8,8 @@
     "backbone.stickit": "*",
     "backbone-validation": "*",
     "crypto-js": "*",
-    "select2": "*"
+    "select2": "*",
+    "jquery-file-upload": "*"
   }
 
 }

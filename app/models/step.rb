@@ -3,7 +3,7 @@ class Step < ActiveRecord::Base
   include RankedModel
 
   belongs_to :flow
-  belongs_to :creator, class_name: "User"
+  has_many :attachments, as: :attachable
 
   ranks :row_order, with_same: :flow_id
 

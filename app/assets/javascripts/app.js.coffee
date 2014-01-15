@@ -2,7 +2,11 @@
 
 #= require jquery
 #= require jquery.ui.sortable
+#= require jquery.ui.widget
+#= require jquery-file-upload/js/jquery.iframe-transport
+#= require jquery-file-upload/js/jquery.fileupload
 #= require jquery_ujs
+
 #= require select2
 
 #= require hamlcoffee
