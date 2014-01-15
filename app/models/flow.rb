@@ -8,15 +8,12 @@ class Flow < ActiveRecord::Base
 
   has_many :steps, dependent: :destroy
 
-  # default_scope -> { order(id: :desc) }
-
   validates :name, presence: true
 
-  accepts_nested_attributes_for :steps, allow_destroy: true,
-    reject_if: proc { |attributes| attributes['name'].blank? }
+  after_create ->{ create_flow_access! creator }
 
-  after_create ->{
-    FlowAccess.create(flow_id: self.id, user_id: self.creator_id)
-  }
+  def create_flow_access! other_user, options={role: "collaborator"}
+    flow_accesses.create!({user: other_user}.reverse_merge!(options))
+  end
 
 end

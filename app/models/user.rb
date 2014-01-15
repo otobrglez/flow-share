@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :owned_flows, foreign_key: :creator_id, dependent: :destroy, class_name: "Flow"
 
   validates :username, uniqueness: true, presence: true, length: { minimum: 3, maximum: 25 }
-  validates :username, format: { with: /\A[\w-]+\Z/, message: "can only be alphanumeric with no spaces" }
+  validates :username, format: { with: /\A[\w-]+\Z/, message: "Username can be only alphanumeric with no spaces" }
 
   def to_s
     username

@@ -42,6 +42,25 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development, :test do
+  gem 'cucumber'
+  gem 'cucumber-rails', require: false
+  gem 'rspec-rails'
+  gem 'rspec-instafail'
+  gem 'parallel_tests'
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-remote'
+  gem 'spork', '~> 1.0rc'
+  gem 'dotenv-rails'
+  gem 'debugger'
+  gem 'ruby-prof'
+  gem 'simplecov', require: false
+  gem 'rails_best_practices'
+  gem 'fuubar'
+  gem 'faker'
+end
+
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
@@ -49,6 +68,7 @@ group :test do
   gem 'webmock'
   gem 'timecop'
   gem 'database_cleaner'
+  gem 'should_not'
 end
 
 group :development do
@@ -61,25 +81,13 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
   gem 'foreman'
-
   gem 'quiet_assets'
+
+  gem 'brakeman', require: false # security
+  #gem 'rack-mini-profiler'
+  gem 'bullet'
 end
 
-group :development, :test do
-  gem 'rspec-rails'
-  gem 'rspec-instafail'
-  gem 'parallel_tests'
-
-  gem 'pry-rails'
-  gem 'pry-doc'
-  gem 'pry-remote'
-
-  gem 'spork', '~> 1.0rc'
-
-  gem 'dotenv-rails'
-
-  gem 'debugger'
-end
 
 gem 'asset_sync'
 

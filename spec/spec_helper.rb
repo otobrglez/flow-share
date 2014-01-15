@@ -10,12 +10,15 @@ WebMock.disable!
 
 Spork.prefork do
   require 'webmock'
+  require 'simplecov' unless ENV['DRB']
+
 
   ENV["RAILS_ENV"] ||= 'test'
 
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'should_not/rspec'
   require 'factory_girl_rails'
   require 'database_cleaner'
   require 'capybara/rspec'
@@ -51,13 +54,14 @@ Spork.prefork do
 
     config.before(:each) do
       DatabaseCleaner.start
-      # Sidekiq::Extensions::DelayedClass.jobs.clear
-      # Sidekiq::Testing.fake!
     end
 
     config.after(:each) do
       DatabaseCleaner.clean
-      # Sidekiq::Testing.disable!
+    end
+
+    config.expect_with :rspec do |c|
+      c.syntax = :expect
     end
 
   end
@@ -65,5 +69,6 @@ Spork.prefork do
 end
 
 Spork.each_run do
-#   Rails.cache.reconnect
+  require 'simplecov' if ENV['DRB']
+
 end

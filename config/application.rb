@@ -28,5 +28,7 @@ module FlowShare
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
 
     config.assets.precompile += %w( app.js ) # 2nd version
+
+    config.i18n.enforce_available_locales = true
   end
 end

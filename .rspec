@@ -1,3 +1,4 @@
---tag ~@slow
 --color
---format doc
+--tag ~@slow
+--format doc 
+--drb
