@@ -23,6 +23,10 @@ FlowShare::Application.routes.draw do
     resources :users, only: [:search] do
       get 'search', on: :collection
     end
+
+    resources :steps, only: [] do
+      resources :attachments, only: [:create, :show]
+    end
   end
 
   get '/validate_email' => "welcome#validate_email"

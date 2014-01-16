@@ -20,7 +20,8 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
 
   initialize: (options)->
     @listenTo @model, "change", => @model.save()
-    super
+    @listenTo @model, "file:added", => @render()
+    @listenTo @model.attachments_collection, "add", => @render()
 
   handle_contenteditable: (e)->
     e.which != 13
@@ -36,19 +37,24 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
   change_step_row_order: (e)->
     @model.set step: {row_order_position: e.index}
 
+  upload_url: ->
+    App.api_url + "/steps/#{@model.id}/attachments"
+
   bind_file_upload: (e)->
     @$el.find(".step_files").fileupload
-      dataType: 'json'
-      # add: (e, data)->
-      #   data.context = $('<button/>').text('Upload')
-      #     .appendTo(document.body)
-      done: (e, data)->
-        console.log "done"
-      #   $.each(data.result.files, function (index, file) {
-      #     $('<p/>').text(file.name).appendTo(document.body);
-      #   });
-      # }
+      url: @upload_url()
+      done: (e, data)=>
+        @model.attachments_collection.add new App.Models.Attachment(data.result)
+      fail: (e, data)->
+        errors = data.jqXHR.responseJSON
+        App.Views.ErrorWatcher.show_errors(
+          @model, (if errors.errors? then errors.errors else null)
+        )
 
+  serializeData: ->
+    attachments = _.map @model.attachments_collection.models, (model)-> model.attributes
+    Object.merge super,
+      attachments: attachments
 
   onRender: ->
     @stickit()

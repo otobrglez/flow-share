@@ -23,15 +23,13 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
     new App.Views.Steps.Step(_.extend({model: item}, itemViewOptions))
 
   initialize: (options)->
-    @listenTo @model, "change", => @model.save()
     @collection = new App.Collections.Steps @model.get("steps"), parent: @model
-    super
+    @listenTo @model, "change", => @model.save()
+    @listenTo @collection, "step:created", => @render()
+    # super
 
   serializeData: ->
-    data = super
-    out = Object.merge data,
-      flow_accesses: @model.flow_accesses
-    out
+    Object.merge super, flow_accesses: @model.flow_accesses
 
   flow_destroy: (e)->
     e.preventDefault()
@@ -68,7 +66,9 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
 
   step_new: (e)->
     e.preventDefault()
-    @collection.create new App.Models.Step()
+    @collection.create (step = new App.Models.Step()),
+      silent: true, wait: false, success: =>
+        @collection.trigger "step:created", step
 
   onRender: ->
     @stickit()

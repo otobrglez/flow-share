@@ -16,7 +16,7 @@ class App.module('Views').Error extends Backbone.Marionette.ItemView
   onRender: ->
     setTimeout =>
       @$el.find("a.error_close").trigger("click")
-    , 2000
+    , 4000
 
 
 class App.module('Views').ErrorWatcher extends Backbone.Marionette.CollectionView

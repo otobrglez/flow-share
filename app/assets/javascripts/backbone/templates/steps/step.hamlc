@@ -1,3 +1,6 @@
+%input.step_files{type:"file", name:"attachment[file]", multiple: "true"}
+%div.step_row_order{style: "display: none"}
+
 %div.step_name{contenteditable: "true"}
 %div.step_comment
 
@@ -12,6 +15,11 @@
     |
   %a.r.step_add_files{href:"#step_add_file"} Add Files
 
-%div.step_row_order{style: "display: none"}
+- if @attachments?
+  %div.attachments
+    %ul
+      - for attachment in @attachments
+        %li.attachment
+          %a{href: "#{attachment.url}", target: "_blank", "data-reload": "true"}
+            ="@ #{attachment.name} #{attachment.human_file_size}"
 
-%input.step_files{type:"file", name:"files[]", "data-url": "server/php/", multiple: "true"}
