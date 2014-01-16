@@ -2,11 +2,11 @@
   %h2.ef#flow_name{contenteditable: "true"}
 
 .bar.tools
-  %a.step_new{href:"#step_new"} + Step
+  %a.r.step_new{href:"#step_new"} + Step
   |
-  %a.flow_destroy{href:"#flow_destroy"} Delete
+  %a.r.flow_destroy{href:"#flow_destroy", "data-sure": "Are you sure?"} Delete
   |
-  %a.flow_share{href:"#flow_share"} Share
+  %a.r.flow_share{href:"#flow_share"} Share
   |
   %span#flow_updated_ago
 

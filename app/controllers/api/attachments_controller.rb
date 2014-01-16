@@ -11,6 +11,11 @@ class Api::AttachmentsController < Api::BaseController
     respond_with attachment
   end
 
+  def destroy
+    attachment.destroy
+    respond_with attachment
+  end
+
   private
 
   def attachment_params

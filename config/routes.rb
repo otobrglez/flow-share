@@ -12,12 +12,12 @@ FlowShare::Application.routes.draw do
 
 
   namespace :api do
-    resources :flows, only: [:create, :update, :destroy, :index, :show] do
+    resources :flows, only: [:create, :show, :index, :update, :destroy] do
       resources :steps, only: [:create, :update, :destroy, :complete] do
         get 'complete', on: :member
       end
 
-      resources :flow_accesses, only: [:create, :destroy, :show]
+      resources :flow_accesses, only: [:create, :show, :destroy]
     end
 
     resources :users, only: [:search] do
@@ -25,7 +25,7 @@ FlowShare::Application.routes.draw do
     end
 
     resources :steps, only: [] do
-      resources :attachments, only: [:create, :show]
+      resources :attachments, only: [:create, :show, :destroy]
     end
   end
 

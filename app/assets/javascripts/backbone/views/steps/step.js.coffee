@@ -9,39 +9,49 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
 
   events:
     'click a.r':                    'prevent_default'
-    'click a.step_destroy':         'step_destroy'
-    'click a.step_add_photo':       'step_add_photo'
-    'click a.step_add_files':       'step_add_files'
+    'change_index .step_row_order': 'move'
+    'click a.step_destroy':         'destroy'
+    'click a.step_add_photo':       'add_photo'
+    'click a.step_add_files':       'add_files'
+    'click a.attachment_destroy':   'attachment_destroy'
     'keypress .step_name':          'handle_contenteditable'
-    'change_index .step_row_order': 'change_step_row_order'
-
-  prevent_default: (e)->
-    e.preventDefault() if e.preventDefault?
 
   initialize: (options)->
     @listenTo @model, "change", => @model.save()
     @listenTo @model, "file:added", => @render()
+
     @listenTo @model.attachments_collection, "add", => @render()
+    @listenTo @model.attachments_collection, "remove", => @render()
+
+  prevent_default: (e)->
+    e.preventDefault() if e.preventDefault?
+
+  move: (e)->
+    @model.set step: {row_order_position: e.index}
+
+  destroy: (e)->
+    @$el.fadeOut "slow", => @model.destroy()
+
+  attachment_destroy: (e)->
+    attachment = new App.Models.Attachment $(e.currentTarget).data()
+    attachment.url = App.api_url + "/steps/#{@model.id}/attachments/#{attachment.id}"
+    attachment.destroy success: =>
+      @model.attachments_collection.remove(attachment)
+
+  add_photo: (e)->
+    console.log "photo ++"
+
+  add_files: (e)->
+    @$el.find(".step_attachments").trigger "click"
 
   handle_contenteditable: (e)->
     e.which != 13
 
-  step_destroy: (e)->
-    @$el.fadeOut "slow", => @model.destroy()
-
-  step_add_photo: (e)->
-
-  step_add_files: (e)->
-    @$el.find(".step_files").trigger "click"
-
-  change_step_row_order: (e)->
-    @model.set step: {row_order_position: e.index}
-
   upload_url: ->
     App.api_url + "/steps/#{@model.id}/attachments"
 
-  bind_file_upload: (e)->
-    @$el.find(".step_files").fileupload
+  bind_attachments_upload: (e)->
+    @$el.find(".step_attachments").fileupload
       url: @upload_url()
       done: (e, data)=>
         @model.attachments_collection.add new App.Models.Attachment(data.result)
@@ -58,4 +68,4 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
 
   onRender: ->
     @stickit()
-    @bind_file_upload()
+    @bind_attachments_upload()
