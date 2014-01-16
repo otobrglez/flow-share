@@ -12,7 +12,15 @@ class App.module('Views.Flows').Index extends Backbone.Marionette.CompositeView
     e.preventDefault()
     @collection.create new @collection.model()
 
+  remove_loader: (view)->
+    loading = view.$el.find("ul.flows-list li.loading")
+    loading.remove()
+    # loading.slideUp "slow", (e)->
+    #   $(this).remove()
+
   appendHtml: (view, item)->
+    @remove_loader view
+
     if item.model.isNew()
       view.$el.find("ul.flows-list").prepend(item.el)
     else

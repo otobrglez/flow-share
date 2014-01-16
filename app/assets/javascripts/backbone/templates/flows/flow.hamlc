@@ -1,21 +1,19 @@
 .bar.title
   %h2.ef#flow_name{contenteditable: "true"}
 
-.bar.tools
-  %a.r.step_new{href:"#step_new"} + Step
-  |
-  %a.r.flow_destroy{href:"#flow_destroy", "data-sure": "Are you sure?"} Delete
-  |
-  %a.r.flow_share{href:"#flow_share"} Share
-  |
-  %span#flow_updated_ago
-
 .bar.sharing
   %ul
     - for flow_access in @flow_accesses
       %li.flow_access
         %img.flow_access_avatar{src: flow_access.user.avatar_url()}
         %span.flow_access_name= flow_access.user.name()
+    %li.flow_access
+      %a.i.r.flow_share{href:"#flow_share", "data-i": "share"} Share
+
+.bar.tools
+  %a.i.r.step_new{href:"#step_new", "data-i": "add"} Add Step
+  %a.i.no_text.r.flow_destroy{href:"#flow_destroy", "data-sure": "Are you sure?", "data-i": "delete"} Delete
+  %span#flow_updated_ago
 
 
 .bar.body

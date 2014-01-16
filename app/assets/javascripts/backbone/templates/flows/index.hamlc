@@ -3,3 +3,6 @@
 
 .flows
   %ul.flows-list/
+
+    %li.loading
+      %p Loading Flows. Beep. Beep.

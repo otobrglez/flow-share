@@ -1,11 +1,15 @@
 @import "colors"
+@import "http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic"
+
+html
+  font-size: 100%
 
 body, html
   margin: 0px
   padding: 0px
 
 body, input, select, textarea
-  font-family: "PT sans", "Helvetica Neue", helvetica, sans-serif
+  font-family: "Noto Sans", "Helvetica Neue", helvetica, sans-serif
   font-size: $font-size
 
 a
@@ -18,9 +22,10 @@ h1, h2, h3
   font-weight: normal
   margin-bottom: 0px
 h1
-  font-size: $font-size * 1.6
+  font-weight: 700
+//  font-size: $font-size * 1.6
 h2
-  font-size: $font-size * 1.4
+//  font-size: $font-size * 1.4
 
 header, nav, .content, footer
   display: block
@@ -44,7 +49,7 @@ header
     position: absolute
     display: inline-block
     right: 10px
-    font-size: $font-size
+    // font-size: $font-size
 
     .inner
       position: relative
@@ -55,7 +60,7 @@ header
         width: 20px
 
   a.logo
-    font-size: $font-size * 1.4
+    // font-size: $font-size * 1.4
     &:hover
       text-decoration: none
 
@@ -63,7 +68,7 @@ nav
   background-color: #F4F4F4
   height: 40px
   line-height: 40px
-  font-size: $font-size * 1.2
+  // font-size: $font-size * 1.2
 
   ul, li
     list-style: none

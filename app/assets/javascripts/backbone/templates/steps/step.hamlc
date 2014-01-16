@@ -1,26 +1,27 @@
-%input.step_attachments{type:"file", name:"attachment[file]", multiple: "true"}
-%input.step_image_attachment{type:"file", name:"attachment[file]"}
+.inner-wrap
+  %input.step_attachments{type:"file", name:"attachment[file]", multiple: "true"}
+  %input.step_image_attachment{type:"file", name:"attachment[file]"}
 
-%div.step_row_order{style: "display: none"}
+  %div.step_row_order{style: "display: none"}
 
-%div.step_name{contenteditable: "true"}
-%div.step_comment
+  .ce-wrap
+    %div.step_name{contenteditable: "true"}
 
-.step-tools
-  %a.r.step_move{href:"#move"} Move
-  |
-  %a.r.step_destroy{href:"#step_destroy"} Delete
-  |
-  %a.r.step_add_photo{href:"#step_add_image"} Add Photo
-  |
-  %a.r.step_add_files{href:"#step_add_file"} Add Files
+  %div.step_comment
 
-- if @attachments?
-  %div.attachments
-    %ul
-      - for attachment in @attachments
-        %li.attachment
-          %a{href: "#{attachment.url}", target: "_blank", "data-reload": "true"}
-            ="@ #{attachment.name} #{attachment.human_file_size}"
-          %a.r.attachment_destroy{href: "#attachment_destroy", "data-id": attachment.id} Delete
+  .bar.step-tools
+    %a.i.r.step_add_photo{href:"#step_add_image", "data-i": "add-photo"} Add Photo
+    %a.i.r.step_add_files{href:"#step_add_file", "data-i": "add-files"} Add Files
+
+    %a.i.no_text.r.step_move{href:"#move", "data-i": "move"} Move
+    %a.i.no_text.r.step_destroy{href:"#step_destroy", "data-i": "delete"} Delete
+
+  - if @attachments?
+    %div.attachments
+      %ul
+        - for attachment in @attachments
+          %li.attachment
+            %a.i{href: "#{attachment.url}", target: "_blank", "data-reload": "true", "data-i": "attachment"}
+              ="#{attachment.short_name} #{attachment.human_file_size}"
+            %a.i.no_text.r.attachment_destroy{href: "#attachment_destroy", "data-id": attachment.id, "data-i": "delete"} Delete
 

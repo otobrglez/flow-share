@@ -1,0 +1,30 @@
+.i
+  background-repeat: no-repeat
+  background-position: center left
+  background-size: 16px
+
+  &[data-i=move]
+    background-image: asset-url('x_move.png')
+  &[data-i=delete]
+    background-image: asset-url('x.png')
+  &[data-i=add-photo]
+    background-image: asset-url('picture.png')
+  &[data-i=add-files]
+    background-image: asset-url('clip.png')
+  &[data-i=add]
+    background-image: asset-url('plus.png')
+  &[data-i=share]
+    background-image: asset-url('group.png')
+  &[data-i=attachment]
+    background-image: asset-url('clip_2.png')
+
+a.i
+  padding-left: 20px
+  width: auto
+
+  &.no_text
+    width: 10px
+    overflow: hidden
+    padding-left: 10px
+    text-indent: -100px
+    // display: inline-block
