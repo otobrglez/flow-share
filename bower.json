@@ -1,6 +1,5 @@
 {
   "name": "flow-share",
-
   "dependencies": {
     "sugar": "*",
     "normalize-css": "*",
@@ -11,5 +10,4 @@
     "select2": "*",
     "jquery-file-upload": "*"
   }
-
 }
