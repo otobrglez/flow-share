@@ -8,5 +8,4 @@ class Attachment < ActiveRecord::Base
 
   end
 
-  # /api/steps/:step_id/attachments/:id
 end
