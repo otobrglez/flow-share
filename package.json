@@ -10,7 +10,7 @@
   },
 
   "scripts": {
-    "postinstall": "rm -rf ./vendor/assets/bower_components ; ./node_modules/bower/bin/bower install"
+    "postinstall": "./prepare_bower.sh"
   },
 
   "repository": {
