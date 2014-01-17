@@ -23,8 +23,10 @@ class App.Models.Step extends App.Models.BaseModel
     color = "transparent"
     if (image = @get("image"))? and image.color_invert?
       color = image.color_invert
-    color
 
+    if color == "transparent"
+      color = "#000000"
+    color
 
 class App.Collections.Steps extends Backbone.Collection
   model: App.Models.Step
