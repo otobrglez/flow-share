@@ -41,7 +41,7 @@ gem 'omniauth-facebook'
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'fog' #, github: 'fog/fog', branch: 'master'
-
+gem 'colorist'
 
 group :doc do
   gem 'sdoc', require: false

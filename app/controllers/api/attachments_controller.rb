@@ -10,7 +10,8 @@ class Api::AttachmentsController < Api::BaseController
   # end
 
   def create
-    @attachment = resources.create attachment_params
+    single = params[:single] == "1" ? 1 : 0
+    @attachment = resources.create(attachment_params.reverse_merge!(single: single))
     respond_with @attachment, status: :created # location: [:api, model],
   end
 

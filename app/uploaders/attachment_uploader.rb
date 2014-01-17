@@ -4,6 +4,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   include CarrierWave::MimeTypes
 
+  attr_accessor :color
+
   def store_dir
     # "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     "uploads/#{model.attachable_type.to_s.underscore}/#{model.id}"
@@ -17,11 +19,26 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   process :save_content_type_and_size_in_model
 
   version :thumb, :if => :image? do
-    process :resize_to_fit => [300, 300]
+    process :resize_to_fill => [300, 300] # ex: resize_to_fit
+    process :detect_image_color if ENV["DETECT_COLOR"] != "0"
   end
 
   def extension_white_list
     %w(jpg jpeg gif png)+ %w(pdf doc docx xls xlsx ppt pptx)
+  end
+
+  def detect_image_color
+    model.color = self.color = color_from(path) if model.respond_to?(:color)
+  end
+
+  def color_from path
+    output = %x(convert #{path.strip} -dither None -colors 1 -unique-colors txt:)
+
+    if output.sub!("\n","") =~ /\#(\w+)/
+      "##{Regexp.last_match[1].to_s}"
+    else
+      nil
+    end
   end
 
   def save_content_type_and_size_in_model

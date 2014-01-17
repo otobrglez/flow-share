@@ -1,13 +1,16 @@
-.inner-wrap
+.inner-wrap{style: "background-color: #{@color}; color: #{@color_invert}"}
+
   %input.step_attachments{type:"file", name:"attachment[file]", multiple: "true"}
-  %input.step_image_attachment{type:"file", name:"attachment[file]"}
+  %input.step_attachment{type:"file", name:"attachment[file]"}
 
   %div.step_row_order{style: "display: none"}
 
   .ce-wrap
     %div.step_name{contenteditable: "true"}
 
-  %div.step_comment
+  - if @image?
+    %div.step_image
+      %img{src: @image.thumb_url}
 
   .bar.step-tools
     %a.i.r.step_add_photo{href:"#step_add_image", "data-i": "add-photo"} Add Photo
@@ -15,6 +18,7 @@
 
     %a.i.no_text.r.step_move{href:"#move", "data-i": "move"} Move
     %a.i.no_text.r.step_destroy{href:"#step_destroy", "data-i": "delete"} Delete
+
 
   - if @attachments?
     %div.attachments

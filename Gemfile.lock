@@ -86,6 +86,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     colored (1.2)
+    colorist (0.0.2)
     columnize (0.3.6)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
@@ -428,6 +429,7 @@ DEPENDENCIES
   carrierwave
   chronic
   coffee-rails (~> 4.0.0)
+  colorist
   cucumber
   cucumber-rails
   database_cleaner

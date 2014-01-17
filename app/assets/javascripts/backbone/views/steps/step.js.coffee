@@ -17,11 +17,14 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
     'keypress .step_name':          'handle_contenteditable'
 
   initialize: (options)->
-    @listenTo @model, "change", => @model.save()
+    #FIX: This could be a problem
+    @listenTo @model, "change", =>
+      @model.save null,
+        success: => @render()
+
     @listenTo @model, "file:added", => @render()
 
-    @listenTo @model.attachments_collection, "add", => @render()
-    @listenTo @model.attachments_collection, "remove", => @render()
+    @listenTo @model.attachments_collection, "add remove", => @render()
 
   prevent_default: (e)->
     e.preventDefault() if e.preventDefault?
@@ -39,8 +42,7 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
       @model.attachments_collection.remove(attachment)
 
   add_photo: (e)->
-    console.log "photo ++"
-
+    @$el.find(".step_attachment").trigger "click"
   add_files: (e)->
     @$el.find(".step_attachments").trigger "click"
 
@@ -49,6 +51,18 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
 
   upload_url: ->
     App.api_url + "/steps/#{@model.id}/attachments"
+
+  bind_attachment_upload: (e)->
+    @$el.find(".step_attachment").fileupload
+      acceptFileTypes: /(\.|\/)(jpe?g|png)$/i
+      url: "#{@upload_url()}?single=1"
+      done: (e, data)=>
+        @model.set("image", data.jqXHR.responseJSON)
+      fail: (e, data)->
+        errors = data.jqXHR.responseJSON
+        App.Views.ErrorWatcher.show_errors(
+          @model, (if errors.errors? then errors.errors else null)
+        )
 
   bind_attachments_upload: (e)->
     @$el.find(".step_attachments").fileupload
@@ -64,8 +78,12 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
   serializeData: ->
     attachments = _.map @model.attachments_collection.models, (model)-> model.attributes
     Object.merge super,
-      attachments: attachments
+      attachments: attachments,
+      color: @model.color(),
+      color_invert: @model.color_invert()
 
   onRender: ->
     @stickit()
+    @bind_attachment_upload()
     @bind_attachments_upload()
+

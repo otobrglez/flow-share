@@ -13,6 +13,19 @@ class App.Models.Step extends App.Models.BaseModel
     else
       @attachments_collection = new App.Collections.Attachments()
 
+  color: ()->
+    color = "transparent"
+    if (image = @get("image"))? and image.color?
+      color = image.color
+    color
+
+  color_invert: ()->
+    color = "transparent"
+    if (image = @get("image"))? and image.color_invert?
+      color = image.color_invert
+    color
+
+
 class App.Collections.Steps extends Backbone.Collection
   model: App.Models.Step
   url: -> App.api_url + "/flows/#{@parent.id}/steps"

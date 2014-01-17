@@ -1,3 +1,4 @@
+
 @import "colors"
 
 .flows-tools
@@ -54,7 +55,7 @@
 
 .flows .flow
   .step
-    input.step_attachments, input.step_image_attachment
+    input.step_attachments, input.step_attachment
       display: block
       visibility: hidden
       width: 0
@@ -79,6 +80,9 @@
 
 .flows
   vertical-align: top
+  .bar
+    padding: 3px
+
   .flow
     display: block
     position: relative
@@ -95,10 +99,13 @@
       .ce-wrap
         padding: 4px
         margin-bottom: 5px
-        .step_name
+
+      .step_image
+        img
+          width: 100%
 
       .inner-wrap
-        padding: 5px
+        // padding: 5px
         padding-left: 0px
 
 
