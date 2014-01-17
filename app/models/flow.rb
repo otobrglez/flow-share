@@ -8,6 +8,9 @@ class Flow < ActiveRecord::Base
 
   has_many :steps, dependent: :destroy
 
+  has_one :attachment, as: :attachable
+  delegate :file, to: :attachment, prefix: true, allow_nil: true
+
   validates :name, presence: true
 
   after_create ->{ create_flow_access!(creator, role: "creator") }
@@ -22,5 +25,7 @@ class Flow < ActiveRecord::Base
     status = flow_access.destroy
     [flow_access, status]
   end
+
+
 
 end

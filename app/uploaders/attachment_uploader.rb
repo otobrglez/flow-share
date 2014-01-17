@@ -16,11 +16,26 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   process :set_content_type
   process :save_content_type_and_size_in_model
 
+  version :thumb, :if => :image? do
+    process :resize_to_fit => [300, 300]
+  end
+
+  def extension_white_list
+    %w(jpg jpeg gif png)+ %w(pdf doc docx xls xlsx ppt pptx)
+  end
+
   def save_content_type_and_size_in_model
     model.content_type = file.content_type if file.content_type
     model.file_size = file.size.to_i
     model.name = file.original_filename if file.original_filename
   end
+
+  protected
+
+  def image?(new_file)
+    new_file.content_type.include? 'image'
+  end
+
 
   # Process files as they are uploaded:
   # process :scale => [200, 300]
@@ -36,9 +51,6 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  def extension_white_list
-    %w(jpg jpeg gif png)+ %w(pdf doc docx xls xlsx ppt pptx)
-  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

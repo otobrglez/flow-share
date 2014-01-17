@@ -4,6 +4,10 @@ class Api::UsersController < Api::BaseController
     respond_with @users = User.search_name(search_params["query"])
   end
 
+  def show
+    respond_with user = User.find(params[:id])
+  end
+
   private
 
   def search_params

@@ -11,22 +11,25 @@ FlowShare::Application.routes.draw do
   get '/flows', to: redirect("/app")
 
 
-  namespace :api do
-    resources :flows, only: [:create, :show, :index, :update, :destroy] do
-      resources :steps, only: [:create, :update, :destroy, :complete] do
+  namespace :api, defaults: {format: :json} do
+    concern :attachable do
+      resources :attachments, only: [:create, :show, :destroy]
+    end
+
+
+    resources :flows, only: [:create, :show, :index, :update, :destroy], concerns: :attachable do
+      resources :steps, only: [:create, :show, :update, :destroy, :complete] do
         get 'complete', on: :member
       end
 
       resources :flow_accesses, only: [:create, :show, :destroy]
     end
 
-    resources :users, only: [:search] do
+    resources :users, only: [:search, :show] do
       get 'search', on: :collection
     end
 
-    resources :steps, only: [] do
-      resources :attachments, only: [:create, :show, :destroy]
-    end
+    resources :steps, only: [], concerns: :attachable
   end
 
   get '/validate_email' => "welcome#validate_email"

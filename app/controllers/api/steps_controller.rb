@@ -5,6 +5,10 @@ class Api::StepsController < Api::BaseController
     respond_with @step, location: [:api, flow, @step], status: :created
   end
 
+  def show
+    respond_with step
+  end
+
   def complete
     step.complete!(current_user)
     respond_with step
