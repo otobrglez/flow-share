@@ -10,7 +10,7 @@ end
 
 json.attachment do |json|
   json.partial! 'api/attachments/attachment', attachment: flow.attachment
-end
+end if flow.attachment.present?
 
 json.steps flow.steps.rank(:row_order) do |step|
   json.partial! 'api/steps/step', step: step
