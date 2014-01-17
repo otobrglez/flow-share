@@ -356,6 +356,10 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
+    sentry-raven (0.7.1)
+      faraday (>= 0.7.6)
+      hashie (>= 1.1.0)
+      uuidtools
     sexp_processor (4.4.1)
     should_not (1.0.0)
     shoulda-matchers (2.4.0)
@@ -400,6 +404,7 @@ GEM
       rack
       raindrops (~> 0.7)
     uniform_notifier (1.4.0)
+    uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
     webmock (1.16.1)
@@ -469,6 +474,7 @@ DEPENDENCIES
   ruby-prof
   sass-rails (~> 4.0.0)
   sdoc
+  sentry-raven
   should_not
   shoulda-matchers
   simplecov
