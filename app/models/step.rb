@@ -1,9 +1,9 @@
 class Step < ActiveRecord::Base
   include Nameable
   include RankedModel
+  include Attachable
 
   belongs_to :flow
-  has_many :attachments, as: :attachable
 
   ranks :row_order, with_same: :flow_id
 

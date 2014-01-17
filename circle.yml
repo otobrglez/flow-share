@@ -1,0 +1,12 @@
+machine:
+  services:
+    - postgresql
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - git push git@heroku.com:flow-share-s1.git $CIRCLE_SHA1:master:
+          timeout: 900
+      - heroku run rake db:migrate --app flow-share-s1
+

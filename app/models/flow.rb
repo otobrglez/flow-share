@@ -1,5 +1,6 @@
 class Flow < ActiveRecord::Base
   include Nameable
+  include Attachable
 
   belongs_to :creator, class_name: "User"
 
@@ -7,9 +8,6 @@ class Flow < ActiveRecord::Base
   has_many :users, through: :flow_accesses
 
   has_many :steps, dependent: :destroy
-
-  has_one :attachment, as: :attachable
-  delegate :file, to: :attachment, prefix: true, allow_nil: true
 
   validates :name, presence: true
 

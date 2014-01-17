@@ -22,14 +22,14 @@ Spork.prefork do
   require 'factory_girl_rails'
   require 'database_cleaner'
   require 'capybara/rspec'
-  # require 'carrierwave/test/matchers'
+  require 'carrierwave/test/matchers'
   # require 'sidekiq/testing'
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
     config.include FactoryGirl::Syntax::Methods
-    # config.include CarrierWave::Test::Matchers
+    config.include CarrierWave::Test::Matchers
 
     config.fail_fast = ENV['RSPEC_FAIL_FAST'] == "1"
     # config.include Helpers

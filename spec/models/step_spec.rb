@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Step do
 
   it_behaves_like "nameable"
+  it_behaves_like "attachable"
+
 
   it { should belong_to :flow }
   it { should have_many :attachments }
