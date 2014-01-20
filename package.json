@@ -10,7 +10,7 @@
   },
 
   "scripts": {
-    "postinstall": "./prepare_bower.sh"
+    "postinstall": "bash prepare_bower.sh"
   },
 
   "repository": {
