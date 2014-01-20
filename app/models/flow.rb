@@ -13,17 +13,22 @@ class Flow < ActiveRecord::Base
 
   after_create ->{ create_flow_access!(creator, role: "creator") }
 
+  attr_writer :mailer
+  def mailer; @mailer ||= FlowMailer; end
+
   def create_flow_access! other_user, options={role: "collaborator"}
     other_user = User.find(other_user[:user_id]) unless other_user.is_a?(User)
-    flow_accesses.create!({user: other_user}.reverse_merge!(options))
+    flow_access = flow_accesses.create!({user: other_user}.reverse_merge!(options))
+    mailer.access_created(flow_access) if self.creator != other_user
+    flow_access
   end
 
   def destroy_flow_access! flow_access_id
     flow_access = flow_accesses.find(flow_access_id)
     status = flow_access.destroy
+    mailer.access_destroyed(flow_access) if status
     [flow_access, status]
   end
-
 
 
 end
