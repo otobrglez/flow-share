@@ -1,13 +1,14 @@
 {
   "name": "flow-share",
   "dependencies": {
+    "jquery":"*",
+    "jquery-file-upload": "*",
     "sugar": "*",
     "normalize-css": "*",
     "marionette": "*",
     "backbone.stickit": "*",
     "backbone-validation": "*",
     "crypto-js": "*",
-    "select2": "*",
-    "jquery-file-upload": "*"
+    "select2": "*"
   }
 }
