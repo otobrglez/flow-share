@@ -14,8 +14,8 @@ describe Flow do
   let(:creator){ flow.creator }
   let(:other_user){ create :user }
 
-  let(:mailer) { double("FlowMailer") }
-  before { flow.mailer = mailer }
+  let(:mailer) { double("FlowMailer", deliver: true) }
+  before(:each){ flow.mailer = mailer }
 
   context "#create" do
     it { expect(mailer).not_to receive(:access_created) }
@@ -24,7 +24,9 @@ describe Flow do
 
   context "#create_flow_access!" do
     it do
-      expect(mailer).to receive(:access_created).once
+      expect(mailer).to receive(:access_created).once.and_return(
+        double('Mailer', deliver: true)
+      )
 
       expect { flow.create_flow_access!(other_user) }
       .to change(flow.flow_accesses, :count)
@@ -33,13 +35,15 @@ describe Flow do
   end
 
   context "#destroy_flow_access!" do
-    let(:flow_access) { flow.flow_accesses.last }
-
     it do
-      expect(mailer).to receive(:access_created).once
+      expect(mailer).to receive(:access_created).once.
+        and_return(mailer)
       expect(mailer).to receive(:access_destroyed).once
+        .and_return(mailer)
 
       flow.create_flow_access!(other_user)
+
+      flow_access = flow.flow_accesses.last
 
       expect { flow.destroy_flow_access!(flow_access.id) }
       .to change(flow.flow_accesses, :count)

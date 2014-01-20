@@ -2,6 +2,8 @@ class FlowAccess < ActiveRecord::Base
   belongs_to :flow
   belongs_to :user
 
+  acts_as_paranoid
+
   validate :user_per_flow
   before_destroy :cant_remote_creator
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140117155209) do
+ActiveRecord::Schema.define(version: 20140120161912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20140117155209) do
     t.string   "role",       default: "creator", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
   add_index "flow_accesses", ["flow_id"], name: "index_flow_accesses_on_flow_id", using: :btree

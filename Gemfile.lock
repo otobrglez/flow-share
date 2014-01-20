@@ -253,6 +253,8 @@ GEM
     parallel (0.9.1)
     parallel_tests (0.16.6)
       parallel
+    paranoia (2.0.2)
+      activerecord (~> 4.0)
     pg (0.17.1)
     pg_search (0.7.2)
       activerecord (>= 3.1)
@@ -459,6 +461,7 @@ DEPENDENCIES
   omniauth
   omniauth-facebook
   parallel_tests
+  paranoia (~> 2.0)
   pg
   pg_search
   powder
