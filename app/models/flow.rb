@@ -2,7 +2,6 @@ class Flow < ActiveRecord::Base
   include Nameable
   include Attachable
 
-
   belongs_to :creator, class_name: "User"
 
   has_many :flow_accesses, ->{ order({role: :desc, updated_at: :desc}) }, foreign_key: :flow_id, dependent: :destroy
@@ -11,7 +10,9 @@ class Flow < ActiveRecord::Base
   has_many :steps, dependent: :destroy
 
   validates :name, presence: true
+  validates :token, presence: true, uniqueness: true, length: { maximum: 10, minimum: 10 }
 
+  after_initialize -> { generate_token }
   after_create ->{ create_flow_access!(creator, role: "creator") }
 
   attr_writer :mailer
@@ -31,5 +32,11 @@ class Flow < ActiveRecord::Base
     [flow_access, status]
   end
 
+  def generate_token
+    self.token ||= loop do
+      random_token = Digest::SHA1.hexdigest([Time.now, rand].join)[0..9]
+      break random_token unless Flow.exists?(token: random_token)
+    end
+  end
 
 end

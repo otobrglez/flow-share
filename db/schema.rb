@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140120161912) do
+ActiveRecord::Schema.define(version: 20140120183701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,10 +48,12 @@ ActiveRecord::Schema.define(version: 20140120161912) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "creator_id", null: false
+    t.integer  "creator_id",            null: false
+    t.string   "token",      limit: 10
   end
 
   add_index "flows", ["creator_id"], name: "index_flows_on_creator_id", using: :btree
+  add_index "flows", ["token"], name: "index_flows_on_token", unique: true, using: :btree
 
   create_table "steps", force: true do |t|
     t.text     "name"

@@ -9,6 +9,8 @@ describe Flow do
   it { should have_many :users }
   it { should have_many :steps }
   it { should validate_presence_of(:name).with_message(/can't be blank/) }
+  it { should validate_presence_of(:token) }
+  #it { should validate_uniqueness_of(:token) }
 
   let!(:flow) { create :flow }
   let(:creator){ flow.creator }
@@ -17,9 +19,15 @@ describe Flow do
   let(:mailer) { double("FlowMailer", deliver: true) }
   before(:each){ flow.mailer = mailer }
 
+
   context "#create" do
     it { expect(mailer).not_to receive(:access_created) }
     it { expect(flow.users).to include(creator) }
+
+    context "#token" do
+      subject { flow.token }
+      its(:size){ should eq 10 }
+    end
   end
 
   context "#create_flow_access!" do

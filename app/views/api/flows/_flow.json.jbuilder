@@ -1,5 +1,5 @@
 json.url api_flows_url
-json.extract! flow, 'id', 'name', 'created_at', 'updated_at'
+json.extract! flow, 'id', 'token', 'name', 'created_at', 'updated_at'
 
 json.created_ago "#{time_ago_in_words(flow.created_at)} ago"
 json.updated_ago "#{time_ago_in_words(flow.updated_at)} ago"
