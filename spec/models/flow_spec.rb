@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Flow do
-
   it_behaves_like "nameable"
   it_behaves_like "attachable"
 
