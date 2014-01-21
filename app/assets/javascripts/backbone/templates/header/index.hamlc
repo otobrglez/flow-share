@@ -1,8 +1,13 @@
 .wrap
-  %a{href: "app", class: "logo"} FlowShare
+  %a{href: "/app", class: "logo"} FlowShare
   .who
     .inner
-      %img.avatar{src: @avatar_url}
-      %a.profile_edit{href:"#profile_edit"}= @name
-      |
-      %a{href:"users/sign_out", "data-method": "delete"} Log out
+      - unless @guest
+        %img.avatar{src: @avatar_url}
+        %a.profile_edit{href:"#profile_edit"}= @name
+        |
+        %a{href:"/users/sign_out", "data-reload": "true"} Log out
+      - else
+        %a{href:"/users/sign_up", "data-reload": "true"} Signup
+        |
+        %a{href:"/users/sign_in", "data-reload": "true"} Login

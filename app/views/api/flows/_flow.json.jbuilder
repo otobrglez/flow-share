@@ -1,8 +1,12 @@
-json.url api_flows_url
+json.url api_flow_url(flow)
+json.public_url public_flow_url(flow)
+json.public_path public_flow_path(flow)
 json.extract! flow, 'id', 'token', 'name', 'created_at', 'updated_at'
 
 json.created_ago "#{time_ago_in_words(flow.created_at)} ago"
 json.updated_ago "#{time_ago_in_words(flow.updated_at)} ago"
+
+json.public flow.public?
 
 json.creator do |json|
   json.partial! 'api/users/user', user: flow.creator

@@ -7,14 +7,30 @@ class App.module('Views.Flows').Share extends App.Views.Popup
     item.parent ||= @collection.parent
     new App.Views.Flows.FlowAccess(_.extend({model: item}, itemViewOptions))
 
-  initialize: ->
-    @collection = new App.Collections.FlowAccesses(@model.get('flow_accesses'), parent: @model)
-    @on "item:added", @item_added
-    super
+  bindings:
+    '#flow_public': { observe: 'public', events: ['change'] }
 
   events:
     'click a.popup_close': 'popup_close'
+    'click #flow_public_url': 'copy_url'
     'input#query item:added': 'item_added'
+
+  initialize: ->
+    @collection = new App.Collections.FlowAccesses(@model.get('flow_accesses'), parent: @model)
+    @on "item:added", @item_added
+
+    super
+
+    @listenTo @model, 'change:public', (m,v,options)=>
+      @render()
+
+    # @model.save null, success: => @render()
+
+  copy_url: (e)->
+    e.preventDefault() if e.preventDefault?
+    text = $(e.currentTarget).val()
+    window.prompt "Copy to clipboard:", text;
+    false
 
   bind_select2: ->
     query = @$el.find("input#query")
@@ -46,7 +62,14 @@ class App.module('Views.Flows').Share extends App.Views.Popup
     flow_access.parent = @collection.parent
     flow_access.save null, success: => @collection.add flow_access
 
+  serializeData: ->
+    Object.merge super, {flow: {
+      public_url: @model.get("public_url")
+      public_path: @model.get("public_path")
+    }, public: @model.public() }
+
   onRender: ->
+    @stickit()
     @bind_select2()
 
 class App.module('Views.Flows').FlowAccess extends Backbone.Marionette.ItemView
@@ -58,7 +81,9 @@ class App.module('Views.Flows').FlowAccess extends Backbone.Marionette.ItemView
     "click a.flow_access-destroy": "flow_access_destroy"
 
   initialize: (options)->
-    @listenTo @model, "change", => @model.save()
+    @listenTo @model, "change", =>
+      console.log "flows_access"
+      @model.save()
     super
 
   flow_access_destroy: (e)->

@@ -34,7 +34,7 @@ class Api::FlowsController < Api::BaseController
   end
 
   def flow_params
-    params.require(:flow).permit(:id, :name, steps_attributes: [:id, :flow_id, :name, :comment, :_destroy])
+    params.require(:flow).permit(:id, :name, :public, steps_attributes: [:id, :flow_id, :name, :comment, :_destroy])
   end
 
 

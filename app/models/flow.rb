@@ -1,6 +1,7 @@
 class Flow < ActiveRecord::Base
   include Nameable
   include Attachable
+  include Rails.application.routes.url_helpers
 
   belongs_to :creator, class_name: "User"
 
@@ -8,6 +9,8 @@ class Flow < ActiveRecord::Base
   has_many :users, through: :flow_accesses
 
   has_many :steps, dependent: :destroy
+
+  scope :public, -> { where(public: 1) }
 
   validates :name, presence: true
   validates :token, presence: true, uniqueness: true, length: { maximum: 10, minimum: 10 }
@@ -37,6 +40,14 @@ class Flow < ActiveRecord::Base
       random_token = Digest::SHA1.hexdigest([Time.now, rand].join)[0..9]
       break random_token unless Flow.exists?(token: random_token)
     end
+  end
+
+  def to_public_param
+    @to_public_param ||= "#{token}-#{name}".parameterize
+  end
+
+  def private?
+    not public?
   end
 
 end

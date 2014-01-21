@@ -17,3 +17,9 @@ class App.Models.User extends Backbone.Model
 
   name: ->
     @get('full_name') || @get('username')
+
+  guest: -> false
+
+class App.Models.Guest extends App.Models.User
+
+  guest: -> true

@@ -11,6 +11,7 @@ describe Flow do
   it { should validate_presence_of(:name).with_message(/can't be blank/) }
   it { should validate_presence_of(:token) }
   #it { should validate_uniqueness_of(:token) }
+  it { should be_private }
 
   let!(:flow) { create :flow }
   let(:creator){ flow.creator }
@@ -57,5 +58,10 @@ describe Flow do
       .to change(flow.flow_accesses, :count)
       .from(2).to(1)
     end
+  end
+
+  context "#private?" do
+    before { subject.public = 1 }
+    it { should be_public }
   end
 end

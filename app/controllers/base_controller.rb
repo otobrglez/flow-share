@@ -1,9 +1,10 @@
 class BaseController < ApplicationController
 
   before_filter :authenticate_user!
+  layout "app"
 
   def app
-    render "app", layout: false
+    render "app"
   end
 
 end

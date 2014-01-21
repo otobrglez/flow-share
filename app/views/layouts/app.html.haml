@@ -1,0 +1,34 @@
+%title FlowShare
+
+%meta{charset: "utf-8"}/
+%meta{name:"viewport", content:"width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=yes"}/
+
+= stylesheet_link_tag    "application", media: "all"
+= csrf_meta_tags
+
+%body.base
+  %header#header
+
+  .content
+    .wrap#live
+      = yield
+
+  #popup-outer-wrap
+    .wrap
+      #popup
+
+  #errors-outer-wrap
+    .wrap
+      #errors
+
+
+  = javascript_include_tag "app"
+
+  - if current_user.present?
+    %script{type:"text/javascript"}
+      App.current_user = new App.Models.User(
+      = current_user.to_json.html_safe
+      );
+
+  = yield :bottom_javascript
+

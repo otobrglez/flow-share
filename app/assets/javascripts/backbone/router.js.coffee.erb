@@ -1,6 +1,5 @@
 class App.Routers.Main extends Backbone.Marionette.AppRouter
 #  controller: App.Controllers.Main
   appRoutes:
-    "app":"index"
-    "flows":"index"
-#    "flows/new": "new"
+    "app": "index"
+    "flows/:token": "show"

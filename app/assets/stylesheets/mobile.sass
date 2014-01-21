@@ -1,64 +1,56 @@
 @import "colors"
 
-@media only screen and (max-width: 500px)
+@media only screen and (max-width: 800px)
   .flows
-    li.flow
-      margin-bottom: 0px
+    .bar
+      margin-bottom: 10px
 
-      .steps
+    .flow
+      .bar.sharing
+        .flow_access_name
+          display: none
 
-        .step
-          height: auto
-          width: 100%
-          display: block
+      .step
+        width: 50%
+        .ce-wrap
+          padding: 5px
+          margin-bottom: 5px
 
-          h2, .name
-            text-align: left
-          .name
-            padding-left: 22px
+        .step_image
+          padding: 3px
+          img
+            width: 100%
 
-
-          .arrow-right
-            right: inherit
-            top: inherit
-            bottom: -12px
-            left: -1px
-            border: none
-            border-bottom: 10px solid transparent
-            border-left: 10px solid transparent
-            border-top: 10px solid $blue
-            display: none
-
-          &.last-step
-            .arrow-right
-              right: inherit
-              top: inherit
-              bottom: -12px
-              left: -1px
-              display: none
-            .inner
-              border-left: 6px solid transparent
+        .inner-wrap
+          // padding: 5px
+          padding-left: 0px
 
 
-          .inner
-            margin-left: 6px
-            border-top: 6px solid transparent
-            border-left: 6px solid $blue
-            padding-left: 10px
+@media only screen and (max-width: 500px)
 
-          &.done
-            .inner
-              border: none
-              border-top: 6px solid transparent
-              border-left: 6px solid $green-light
+  .flows
+    .bar
+      margin-bottom: 10px
 
-        .step.dummy
-          .inner
-            border-top: none
-            border-left: 6px solid transparent
+    .flow
+      .bar.sharing
+        .flow_access_name
+          display: none
 
+      .step
+        display: block
+        width: 100%
+        .ce-wrap
+          padding: 5px
+          margin-bottom: 5px
 
-    li.flow:not(.editable) .steps .step.done .inner
-      border-top: 6px solid transparent
+        .step_image
+          padding: 3px
+          img
+            width: 100%
+
+        .inner-wrap
+          // padding: 5px
+          padding-left: 0px
 
 

@@ -12,7 +12,7 @@ class Attachment < ActiveRecord::Base
 
   def color_invert
     if color.present?
-      Colorist::Color.from(color).text_color.to_s
+      Colorist::Color.from(color).text_color.to_s rescue "#000000"
     end
   end
 

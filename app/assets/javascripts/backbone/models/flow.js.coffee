@@ -1,4 +1,9 @@
 class App.Models.Flow extends App.Models.BaseModel
+  url: ->
+    base = App.api_url + '/flows'
+    base = "#{base}/#{@get('id')}" if @get("id")?
+    base
+
   paramRoot: 'flow'
 
   validation:
@@ -11,6 +16,13 @@ class App.Models.Flow extends App.Models.BaseModel
   toJSON: ->
     id: @id
     name: @get('name')
+    public: if @public() then 1 else 0
+
+  public: ->
+    result = false
+    if @get('public')? and @get('public') == true or @get('public') == 1
+      result = true
+    result
 
   owned_by: (user)->
     @get('creator').id == user.get('id')

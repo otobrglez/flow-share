@@ -1,6 +1,8 @@
 .bar.title
   %h2.ef#flow_name{contenteditable: "true"}
 
+%p#flow_public
+
 .bar.sharing
   %ul
     - for flow_access in @flow_accesses

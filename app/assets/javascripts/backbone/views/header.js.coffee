@@ -9,12 +9,13 @@ class App.module('Views').Header extends Backbone.Marionette.ItemView
 
 
   initialize: (options)->
-    @model = App.current_user
+    @model = App.current_user || new App.Models.Guest()
 
   serializeData: ->
     Object.merge @model.toJSON(),
       avatar_url: @model.avatar_url()
       name: @model.name()
+      guest: @model.guest()
 
   profile_edit: (e)->
     e.preventDefault()

@@ -16,6 +16,10 @@ class App.Controllers.Main
 
   index: ->
     @flows.fetch()
-
     @showView new App.Views.Flows.Index(collection: @flows)
 
+
+  show: ->
+    @flow = new App.Models.Flow(id: App.flow.get("id"))
+    @flow.fetch().done => App.flow = null
+    @showView new App.Views.Flows.Show(model: @flow)

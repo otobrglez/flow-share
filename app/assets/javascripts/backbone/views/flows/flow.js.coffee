@@ -21,7 +21,10 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
 
   initialize: (options)->
     @collection = new App.Collections.Steps @model.get("steps"), parent: @model
-    @listenTo @model, "change", => @model.save()
+
+    @listenTo @model, "change", =>
+      @model.save()
+
     @listenTo @collection, "step:created", => @render()
     # super
 

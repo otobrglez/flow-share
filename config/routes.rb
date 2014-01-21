@@ -9,13 +9,12 @@ FlowShare::Application.routes.draw do
 
   get '/app' => "base#app"
   get '/flows', to: redirect("/app")
-
+  get '/flows/:token' => "flows#show", as: "flow"
 
   namespace :api, defaults: {format: :json} do
     concern :attachable do
       resources :attachments, only: [:create, :show, :destroy]
     end
-
 
     resources :flows, only: [:create, :show, :index, :update, :destroy], concerns: :attachable do
       resources :steps, only: [:create, :show, :update, :destroy, :complete] do
