@@ -28,6 +28,13 @@ class App.Models.Step extends App.Models.BaseModel
       color = "#000000"
     color
 
+  completed: ()->
+    @get("achiever_id")? or @get("completed")
+
+  can_edit: ()->
+    not @completed()
+
+
 class App.Collections.Steps extends Backbone.Collection
   model: App.Models.Step
   url: -> App.api_url + "/flows/#{@parent.id}/steps"

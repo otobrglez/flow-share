@@ -9,14 +9,8 @@ class Api::StepsController < Api::BaseController
     respond_with step
   end
 
-  def complete
-    step.complete!(current_user)
-    respond_with step
-  end
-
   def update
-    step.update step_params
-    respond_with step
+    respond_with step.update(step_params)
   end
 
   def destroy
@@ -27,7 +21,7 @@ class Api::StepsController < Api::BaseController
   private
 
   def step_params
-    params.require(:step).permit(:id, :name, :comment, :row_order_position)
+    params.require(:step).permit(:id, :name, :comment, :achiever_id, :assignee_id,  :row_order_position)
   end
 
   def flow

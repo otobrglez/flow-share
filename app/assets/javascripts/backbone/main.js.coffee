@@ -41,4 +41,3 @@ App.on 'initialize:after', ->
   Backbone.history.start(pushState: true) if Backbone.history?
 
 $(document).ready -> App.start()
-

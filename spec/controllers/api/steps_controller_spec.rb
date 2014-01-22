@@ -18,17 +18,6 @@ describe Api::StepsController do
     end
   end
 
-  context "#complete" do
-    let(:step){ flow.steps.first }
-
-    it do
-      get :complete, id: step.id
-
-      expect(response).to be_success
-      expect(assigns[:step]).to be_completed
-    end
-  end
-
   context "#update" do
     let(:step){ flow.steps.first }
 

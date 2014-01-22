@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140121081146) do
+ActiveRecord::Schema.define(version: 20140121153534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,10 +61,13 @@ ActiveRecord::Schema.define(version: 20140121081146) do
     t.integer  "flow_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "completed",  default: 0, null: false
     t.integer  "row_order"
+    t.integer  "assignee_id"
+    t.integer  "achiever_id"
   end
 
+  add_index "steps", ["achiever_id"], name: "index_steps_on_achiever_id", using: :btree
+  add_index "steps", ["assignee_id"], name: "index_steps_on_assignee_id", using: :btree
   add_index "steps", ["flow_id"], name: "index_steps_on_flow_id", using: :btree
 
   create_table "users", force: true do |t|

@@ -5,20 +5,29 @@
 
   %div.step_row_order{style: "display: none"}
 
-  .ce-wrap
-    %div.step_name{contenteditable: "true"}
+
+  - unless @completed
+    .bar.buttons
+      %a.r.complete{href:"#complete"} Complete
+  - else
+    .bar.buttons
+      %p
+        ="Completed by #{@achiever.username}"
 
   - if @image?
     %div.step_image
       %img{src: @image.thumb_url}
 
-  .bar.step-tools
-    %a.i.r.step_add_photo{href:"#step_add_image", "data-i": "add-photo"} Add Photo
-    %a.i.r.step_add_files{href:"#step_add_file", "data-i": "add-files"} Add Files
+  .ce-wrap
+    %div.step_name{contenteditable: "true"}
 
-    %a.i.no_text.r.step_move{href:"#move", "data-i": "move"} Move
-    %a.i.no_text.r.step_destroy{href:"#step_destroy", "data-i": "delete"} Delete
+  - unless @completed
+    .bar.step-tools
+      %a.i.r.step_add_photo{href:"#step_add_image", "data-i": "add-photo"} Add Photo
+      %a.i.r.step_add_files{href:"#step_add_file", "data-i": "add-files"} Add Files
 
+      %a.i.no_text.r.step_move{href:"#move", "data-i": "move"} Move
+      %a.i.no_text.r.step_destroy{href:"#step_destroy", "data-i": "delete"} Delete
 
   - if @attachments?
     %div.attachments
@@ -28,4 +37,3 @@
             %a.i{href: "#{attachment.file_url}", target: "_blank", "data-reload": "true", "data-i": "attachment"}
               ="#{attachment.short_name} #{attachment.human_file_size}"
             %a.i.no_text.r.attachment_destroy{href: "#attachment_destroy", "data-id": attachment.id, "data-i": "delete"} Delete
-

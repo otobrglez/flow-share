@@ -17,7 +17,8 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
     'click .step_new':        'new'
 
   buildItemView: (item, ItemViewType, itemViewOptions)->
-    new App.Views.Steps.Step(_.extend({model: item}, itemViewOptions))
+    step = new App.Views.Steps.Step(_.extend({model: item}, itemViewOptions))
+    step
 
   initialize: (options)->
     @collection = new App.Collections.Steps @model.get("steps"), parent: @model
@@ -26,6 +27,8 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
       @model.save()
 
     @listenTo @collection, "step:created", => @render()
+    @listenTo @collection, "changed", => @render()
+
     # super
 
   prevent_default: (e)->
@@ -34,7 +37,8 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
   destroy: (e)->
     if (sure = $(e.currentTarget).data("sure"))?
       if confirm(sure)
-        @$el.fadeOut "fast", => @model.destroy()
+        @$el.fadeOut "fast", =>
+          @model.destroy()
 
   share: (e)->
     popup = new App.Views.Flows.Share(model: @model)

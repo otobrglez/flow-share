@@ -44,6 +44,7 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem 'fog' #, github: 'fog/fog', branch: 'master'
 gem 'colorist'
+gem 'inherited_resources'
 
 group :doc do
   gem 'sdoc', require: false

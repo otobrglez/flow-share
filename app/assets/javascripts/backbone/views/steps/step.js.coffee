@@ -14,13 +14,14 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
     'click a.step_add_photo':       'add_photo'
     'click a.step_add_files':       'add_files'
     'click a.attachment_destroy':   'attachment_destroy'
+    'click a.complete':             'complete'
     'keypress .step_name':          'handle_contenteditable'
 
   initialize: (options)->
     #FIX: This could be a problem
+    # @listenTo @model, "change", => @model.save()
     @listenTo @model, "change", =>
-      @model.save null,
-        success: => @render()
+      @model.save {}, success: => @render()
 
     @listenTo @model, "file:added", => @render()
 
@@ -31,6 +32,9 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
 
   move: (e)->
     @model.set step: {row_order_position: e.index}
+
+  complete: (e)->
+    @model.set("achiever_id", App.current_user.get("id"))
 
   destroy: (e)->
     @$el.fadeOut "slow", => @model.destroy()
@@ -43,6 +47,7 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
 
   add_photo: (e)->
     @$el.find(".step_attachment").trigger "click"
+
   add_files: (e)->
     @$el.find(".step_attachments").trigger "click"
 
@@ -77,13 +82,28 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
 
   serializeData: ->
     attachments = _.map @model.attachments_collection.models, (model)-> model.attributes
-    Object.merge super,
+    out = Object.merge super,
       attachments: attachments,
       color: @model.color(),
-      color_invert: @model.color_invert()
+      color_invert: @model.color_invert(),
+      completed: @model.completed(),
+      can_edit: @model.can_edit()
+    out
+
+  # DON'T USE THIS
+  # fix_height: ->
+  #   heights = @$el.parents(".flow").find(".step").map (i,el)-> $(el).height()
+  #   max_height = _.max(heights)
+  #   console.log max_height
+  #   @$el.parents(".flow").find(".step").each (i,el)->$(el).css("height", max_height)
+  #   false
+  #onShow: ->
+  #  @fix_height()
 
   onRender: ->
     @stickit()
     @bind_attachment_upload()
     @bind_attachments_upload()
+    @trigger "item:after_render", @$el
+
 

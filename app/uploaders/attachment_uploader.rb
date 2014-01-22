@@ -20,7 +20,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
 
   version :thumb, :if => :image? do
     process :resize_to_fill => [300, 300] # ex: resize_to_fit
-    process :detect_image_color if ENV["DETECT_COLOR"] != "0"
+    process :detect_image_color if ENV["DETECT_COLOR"] == "1"
   end
 
   def extension_white_list
