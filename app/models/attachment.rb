@@ -6,10 +6,6 @@ class Attachment < ActiveRecord::Base
 
   delegate :thumb, :url, :current_path, :identifier, to: :file
 
-  def resource_url
-    #TODO: Build one.
-  end
-
   def color_invert
     if color.present?
       Colorist::Color.from(color).text_color.to_s rescue "#000000"
