@@ -9,24 +9,48 @@
   %form{action: "#"}
 
     %label
-      Is public?
+      %strong
+        This is
+        - if @public
+          public
+        - else
+          private
+        Flow.
       %input{type:"checkbox", id:"flow_public"}
+    %br/
 
     - if @public
-      %br/
+      %p
+        Anyone with URL can see it.
 
       %label
         Public URL
         %input{value: @flow.public_url, style:"width:100%", readonly: "readonly", id:"flow_public_url"}
 
-      %br/
-
   %form{action: "#"}
     %label
-      Flow Collaborator
-      %input#query{style:"width:100%"}
+      %strong
+        This is
+        - if @open
+          open
+        - else
+          closed
+        Flow.
+      %input{type:"checkbox", id:"flow_open"}
+    %br/
 
-  .list
-    %ul.users-list
+    - if @open
+      %p Any user can collaborate on it.
+      %style= "div.can_collaborate {display: none; }"
+
+    .can_collaborate
+      %br/
+      %label
+        %strong Shared with
+        %input#query{style:"width:100%"}
+
+      .list
+        %ul.users-list
+
 
 %br/

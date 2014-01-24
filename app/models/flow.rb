@@ -50,6 +50,10 @@ class Flow < ActiveRecord::Base
     not public?
   end
 
+  def closed?
+    not open?
+  end
+
   def duable_steps
     if @duable_steps.nil?
 

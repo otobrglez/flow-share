@@ -9,6 +9,7 @@ class App.module('Views.Flows').Share extends App.Views.Popup
 
   bindings:
     '#flow_public': { observe: 'public', events: ['change'] }
+    '#flow_open':   { observe: 'open', events: ['change'] }
 
   events:
     'click a.popup_close': 'popup_close'
@@ -21,7 +22,7 @@ class App.module('Views.Flows').Share extends App.Views.Popup
 
     super
 
-    @listenTo @model, 'change:public', (m,v,options)=>
+    @listenTo @model, 'change', (m,v,options)=>
       @render()
 
     # @model.save null, success: => @render()
@@ -63,10 +64,13 @@ class App.module('Views.Flows').Share extends App.Views.Popup
     flow_access.save null, success: => @collection.add flow_access
 
   serializeData: ->
-    Object.merge super, {flow: {
-      public_url: @model.get("public_url")
-      public_path: @model.get("public_path")
-    }, public: @model.public() }
+    Object.merge super,
+      flow: {
+        public_url: @model.get("public_url")
+        public_path: @model.get("public_path")
+      },
+      public: @model.public()
+      open: @model.open()
 
   onRender: ->
     @stickit()
@@ -82,7 +86,7 @@ class App.module('Views.Flows').FlowAccess extends Backbone.Marionette.ItemView
 
   initialize: (options)->
     @listenTo @model, "change", =>
-      console.log "flows_access"
+      # console.log "flows_access"
       @model.save()
     super
 

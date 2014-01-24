@@ -7,6 +7,7 @@ json.created_ago "#{time_ago_in_words(flow.created_at)} ago"
 json.updated_ago "#{time_ago_in_words(flow.updated_at)} ago"
 
 json.public flow.public?
+json.open flow.open?
 
 json.creator do |json|
   json.partial! 'api/users/user', user: flow.creator

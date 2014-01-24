@@ -17,10 +17,17 @@ class App.Models.Flow extends App.Models.BaseModel
     id: @id
     name: @get('name')
     public: if @public() then 1 else 0
+    open: if @open() then 1 else 0
 
   public: ->
     result = false
     if @get('public')? and @get('public') == true or @get('public') == 1
+      result = true
+    result
+
+  open: ->
+    result = false
+    if @get('open')? and @get('open') == true or @get('open') == 1
       result = true
     result
 
