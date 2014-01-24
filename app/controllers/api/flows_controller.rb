@@ -2,6 +2,7 @@ class Api::FlowsController < Api::BaseController
 
   def create
     @flow = current_user.owned_flows.create(flow_params)
+    # binding.pry
     respond_with @flow, location: [:api, @flow], status: :created
   end
 

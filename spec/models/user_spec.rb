@@ -18,9 +18,4 @@ describe User do
     .with_message(/alphanumeric/)
   end
 
-  context "#to_s" do
-    subject { build :user }
-    it { expect(User.new.to_s).to be_nil }
-    its(:to_s){ should eq subject.username }
-  end
 end
