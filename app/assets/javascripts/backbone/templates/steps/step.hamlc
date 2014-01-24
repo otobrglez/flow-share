@@ -5,14 +5,20 @@
 
   %div.step_row_order{style: "display: none"}
 
+  -#
+    .bar.buttons
+      %a.r.complete{href:"#complete"} Complete
 
   - unless @completed
     .bar.buttons
-      %a.r.complete{href:"#complete"} Complete
+      - if @can_do
+        %a.r.complete{href:"#complete"} Complete
+      - else
+        %p Pending
   - else
     .bar.buttons
       %p
-        ="Completed by #{@achiever.username}"
+        ="Completed by #{@achiever.to_s}"
 
   - if @image?
     %div.step_image

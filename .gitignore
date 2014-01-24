@@ -10,7 +10,7 @@ bin/
 /*.pdf
 /*.gv
 /*.csv
-
+/*.sql
 /*.dump
 /db/redis
 /db/pg-data/

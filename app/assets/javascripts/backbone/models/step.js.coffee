@@ -34,6 +34,9 @@ class App.Models.Step extends App.Models.BaseModel
   can_edit: ()->
     not @completed()
 
+  can_do: ()->
+    @get("can_do")
+
 
 class App.Collections.Steps extends Backbone.Collection
   model: App.Models.Step

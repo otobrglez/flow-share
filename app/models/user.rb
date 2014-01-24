@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   validates :username, format: { with: /\A[\w-]+\Z/, message: "Username can be only alphanumeric with no spaces" }
 
   def to_s
-    username
+    full_name || username
   end
 
 end

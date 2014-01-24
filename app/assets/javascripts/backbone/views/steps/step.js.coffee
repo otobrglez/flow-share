@@ -87,7 +87,8 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
       color: @model.color(),
       color_invert: @model.color_invert(),
       completed: @model.completed(),
-      can_edit: @model.can_edit()
+      can_edit: @model.can_edit(),
+      can_do: @model.can_do()
     out
 
   # DON'T USE THIS

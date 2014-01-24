@@ -16,7 +16,7 @@ json.image do |json|
   json.partial! 'api/attachments/attachment', attachment: flow.image
 end if flow.image.present?
 
-json.steps flow.steps.rank(:row_order) do |step|
+json.steps flow.duable_steps do |step|
   json.partial! 'api/steps/step', step: step
 end
 

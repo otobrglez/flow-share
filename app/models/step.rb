@@ -28,4 +28,9 @@ class Step < ActiveRecord::Base
     self.achiever.present? or self.achiever_id.present?
   end
 
+  attr_accessor :can_do
+  def can_do?
+    self.can_do || false
+  end
+
 end

@@ -2,6 +2,7 @@ json.url api_flow_step_url(step.flow, step)
 json.extract! step, 'id', 'name'
 
 json.completed step.completed?
+json.can_do step.respond_to?(:can_do?) ? step.can_do : false
 
 json.image do |json|
   json.partial! 'api/attachments/attachment', attachment: step.image

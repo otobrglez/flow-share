@@ -50,4 +50,28 @@ class Flow < ActiveRecord::Base
     not public?
   end
 
+  def duable_steps
+    if @duable_steps.nil?
+
+      @duable_steps = self.steps.rank(:row_order)
+
+      [nil, *@duable_steps, nil].each_cons(3) do |p, c, n|
+
+        can_do = if (p.nil? and c.achiever_id.blank?)
+          true
+        elsif (not(p.nil?) and c.achiever_id.blank? and p.achiever_id.present?)
+          true
+        else
+          false
+        end
+
+        @duable_steps[@duable_steps.index(c)].can_do = can_do
+      end
+
+      return @duable_steps
+    end
+
+    @duable_steps
+  end
+
 end
