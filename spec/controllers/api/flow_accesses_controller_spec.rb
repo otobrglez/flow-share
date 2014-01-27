@@ -39,7 +39,7 @@ describe Api::FlowAccessesController do
       flow.create_flow_access! other_user
 
       expect {
-        delete :destroy, id: flow.flow_accesses.last.id
+        delete :destroy, id: flow.flow_accesses.where(role: "collaborator").last.id
       }.to change(flow.flow_accesses, :count).by(-1)
     end
   end

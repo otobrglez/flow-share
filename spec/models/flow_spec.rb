@@ -52,10 +52,11 @@ describe Flow do
 
       flow.create_flow_access!(other_user)
 
-      flow_access = flow.flow_accesses.last
+      flow_access = flow.flow_accesses.where(role: "collaborator").last
 
-      expect { flow.destroy_flow_access!(flow_access.id) }
-      .to change(flow.flow_accesses, :count)
+      expect {
+        flow.destroy_flow_access!(flow_access.id)
+      }.to change(flow.flow_accesses, :count)
       .from(2).to(1)
     end
   end
