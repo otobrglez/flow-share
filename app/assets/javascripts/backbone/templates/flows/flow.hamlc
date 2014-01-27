@@ -9,8 +9,20 @@
       %li.flow_access
         %img.flow_access_avatar{src: flow_access.user.avatar_url()}
         %span.flow_access_name= flow_access.user.name()
-    %li.flow_access
-      %a.i.r.flow_share{href:"#flow_share", "data-i": "share"} Share
+
+    %li
+      %a.i.r.flow_share{href:"#flow_share", "data-i": "share"}
+        - if @public
+          %span Public
+        - else
+          %span Private
+        \/
+        - if @open
+          %span Open
+        - else
+          %span Closed
+
+
 
 .bar.tools
   %a.i.r.step_new{href:"#step_new", "data-i": "add"} Add Step
