@@ -14,6 +14,9 @@ class Step < ActiveRecord::Base
 
   around_update :handle_achived
 
+  attr_writer :mailer
+  def mailer; @mailer ||= StepMailer; end
+
   def handle_achived
     achiever_id_changed = self.achiever_id_changed?
     yield
@@ -21,7 +24,7 @@ class Step < ActiveRecord::Base
   end
 
   def notify_about_achieved
-    puts "notify_about_achieved"
+    mailer.notify_about_achieved(self)
   end
 
   def completed?

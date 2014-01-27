@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     :using => [ :tsearch ], # :dmetaphone:trigrams
     :ignoring => :accents
 
-  # Include default devise modules. Others available are:
+  # Include default devise modules. Others available _are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable

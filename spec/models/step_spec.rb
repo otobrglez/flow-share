@@ -12,8 +12,9 @@ describe Step do
   let!(:other_user) { create :user }
   let!(:flow){ create :flow_with_steps, creator: user }
 
+  before { flow.create_flow_access!(other_user) }
+
   context "complete" do
-    before { flow.create_flow_access!(other_user) }
     subject { flow.steps.first }
 
     let!(:datetime){ DateTime.parse("2014-10-10 10:10:10") }
@@ -28,6 +29,18 @@ describe Step do
       expect { subject.update(achiever: other_user) }
       .to change(subject, :achiever).from(nil).to(other_user)
     }
+  end
+
+  context "complete mail" do
+    let(:mailer) { double("StepMailer", deliver: true) }
+    let!(:step){ flow.steps.first }
+
+    before { step.mailer = mailer  }
+
+    it "#notify_about_achieved" do
+      expect(mailer).to receive(:notify_about_achieved).with(step).once
+      step.update(achiever: other_user)
+    end
 
   end
 end
