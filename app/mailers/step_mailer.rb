@@ -1,4 +1,6 @@
 class StepMailer < ActionMailer::Base
+  include SendGrid
+
   default from: ENV["MAIL_SENDER"]
 
   def self.notify_about_achieved step
@@ -13,6 +15,8 @@ class StepMailer < ActionMailer::Base
   end
 
   def achieved step, user, achiever
+    sendgrid_category "achieved_report"
+
     @step ||= step
     @flow = @step.flow
     @user ||= user

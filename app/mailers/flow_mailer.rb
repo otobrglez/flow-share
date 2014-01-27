@@ -1,7 +1,11 @@
 class FlowMailer < ActionMailer::Base
+  include SendGrid
+
   default from: ENV["MAIL_SENDER"]
 
   def access_created flow_access
+    sendgrid_category "access_created"
+
     @flow_access ||= flow_access
 
     mail to: @flow_access.user.email,
@@ -9,6 +13,8 @@ class FlowMailer < ActionMailer::Base
   end
 
   def access_destroyed flow_access
+    sendgrid_category "access_destroyed"
+
     @flow_access ||= flow_access
 
     mail to: @flow_access.user.email,
