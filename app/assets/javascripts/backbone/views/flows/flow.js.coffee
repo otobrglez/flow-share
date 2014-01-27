@@ -18,6 +18,8 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
 
   buildItemView: (item, ItemViewType, itemViewOptions)->
     step = new App.Views.Steps.Step(_.extend({model: item}, itemViewOptions))
+    step.on "step:changed", =>
+      @flow_fetch()
     step
 
   initialize: (options)->
@@ -49,7 +51,8 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
   new: (e)->
     @collection.create (step = new App.Models.Step()),
       silent: true, wait: false, success: =>
-        @collection.trigger "step:created", step
+        # @collection.trigger "step:created", step
+        @flow_fetch()
 
   flow_fetch: ->
     App.mainRegion.currentView.collection.fetch reset: true

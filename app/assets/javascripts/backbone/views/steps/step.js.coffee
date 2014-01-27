@@ -21,7 +21,9 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
     #FIX: This could be a problem
     # @listenTo @model, "change", => @model.save()
     @listenTo @model, "change", =>
-      @model.save {}, success: => @render()
+      @model.save {}, success: =>
+        @trigger("step:changed")
+        @render()
 
     @listenTo @model, "file:added", => @render()
 
