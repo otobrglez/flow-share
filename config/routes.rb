@@ -17,10 +17,9 @@ FlowShare::Application.routes.draw do
     end
 
     resources :flows, only: [:create, :show, :index, :update, :destroy], concerns: :attachable do
-      resources :steps, only: [:create, :show, :update, :destroy, :complete] do
-        get 'complete', on: :member
-      end
+      get 'via_token/:token', on: :collection, to: :show
 
+      resources :steps, only: [:create, :show, :update, :destroy]
       resources :flow_accesses, only: [:create, :show, :destroy]
     end
 

@@ -1,34 +1,55 @@
 .bar.title
-  %h2.ef#flow_name{contenteditable: "true"}
+  - if @can_edit
+    %h2.ef#flow_name{contenteditable: "true"}
+  -else
+    %h2#flow_name
 
 %p#flow_public
 
 .bar.sharing
   %ul
-    - for flow_access in @flow_accesses
+
+    - if @open
       %li.flow_access
-        %img.flow_access_avatar{src: flow_access.user.avatar_url()}
-        %span.flow_access_name= flow_access.user.name()
+        %img.flow_access_avatar{src: @creator.avatar_url }
+        %span.flow_access_name= @creator.to_s
+      %li
+        and anybody else
+
+    - else
+      - if @flow_accesses?
+        - for flow_access in @flow_accesses
+          %li.flow_access
+            %img.flow_access_avatar{src: flow_access.user.avatar_url }
+            %span.flow_access_name= flow_access.user.to_s
 
     %li
-      %a.i.r.flow_share{href:"#flow_share", "data-i": "share"}
+      - if @can_edit
+        %a.i.r.flow_share{href:"#flow_share", "data-i": "share"}
+          - if @public
+            %span Public
+          - else
+            %span Private
+          \/
+          - if @open
+            %span Open
+          - else
+            %span Closed
+
         - if @public
-          %span Public
-        - else
-          %span Private
-        \/
-        - if @open
-          %span Open
-        - else
-          %span Closed
+          |
+          %a{href: @public_path} Show
 
+- if @can_edit
+  .bar.tools
+    %a.i.r.step_new{href:"#step_new", "data-i": "add"} Add Step
 
+    %a.i.no_text.r.flow_destroy{href:"#flow_destroy", "data-sure": "Do you want to delete this Flow?", "data-i": "delete"} Delete
+    %span#flow_updated_ago
 
-.bar.tools
-  %a.i.r.step_new{href:"#step_new", "data-i": "add"} Add Step
-  %a.i.no_text.r.flow_destroy{href:"#flow_destroy", "data-sure": "Do you want to delete this Flow?", "data-i": "delete"} Delete
-  %span#flow_updated_ago
-
+.bar
+  - if not @can_edit and @open
+    %p This is open Flow. Anyone with account can change it.
 
 .bar.body
   %ul.steps-list/

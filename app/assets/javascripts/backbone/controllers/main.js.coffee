@@ -18,8 +18,9 @@ class App.Controllers.Main
     @flows.fetch()
     @showView new App.Views.Flows.Index(collection: @flows)
 
+  show: (token)->
+    token = token.split("-", 1).shift()
 
-  show: ->
-    @flow = new App.Models.Flow(id: App.flow.get("id"))
-    @flow.fetch().done => App.flow = null
-    @showView new App.Views.Flows.Show(model: @flow)
+    @flow = new App.Models.Flow(token: token)
+    @flow.fetch().done =>
+      @showView new App.Views.Flows.Show(model: @flow)

@@ -2,8 +2,9 @@
   Loading Flow
   = @flow
 
-- content_for :bottom_javascript do
-  %script{type:"text/javascript"}
-    App.flow = new App.Models.Flow(
-    = @flow.to_json.html_safe
-    );
+-#
+  - content_for :bottom_javascript do
+    %script{type:"text/javascript"}
+      App.flow = new App.Models.Flow(
+      = @flow.to_json.html_safe
+      );

@@ -24,4 +24,12 @@ class User < ActiveRecord::Base
     full_name || username
   end
 
+  def avatar_url size=48
+    @avatar_url ||= "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase)}.png?s=#{size}"
+  end
+
+  def attributes
+    super.reverse_merge!(avatar_url: avatar_url)
+  end
+
 end

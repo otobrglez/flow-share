@@ -85,12 +85,13 @@ class App.module('Views.Steps').Step extends Backbone.Marionette.ItemView
   serializeData: ->
     attachments = _.map @model.attachments_collection.models, (model)-> model.attributes
     out = Object.merge super,
-      attachments: attachments,
-      color: @model.color(),
-      color_invert: @model.color_invert(),
-      completed: @model.completed(),
-      can_edit: @model.can_edit(),
+      attachments: attachments
+      color: @model.color()
+      color_invert: @model.color_invert()
+      completed: @model.completed()
+      can_edit: @model.can_edit()
       can_do: @model.can_do()
+      flow_can_edit: @model.collection.parent.can_edit()
     out
 
   # DON'T USE THIS

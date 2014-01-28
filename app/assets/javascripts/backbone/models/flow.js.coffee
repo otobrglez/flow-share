@@ -1,14 +1,20 @@
 class App.Models.Flow extends App.Models.BaseModel
   url: ->
     base = App.api_url + '/flows'
-    base = "#{base}/#{@get('id')}" if @get("id")?
-    base
+
+    if @get("id")?
+      new_base = "#{base}/#{@get('id')}"
+    else if @get('token')?
+      new_base = "#{base}/via_token/#{@get('token')}"
+    else
+      new_base = base
+
+    new_base
 
   paramRoot: 'flow'
 
   validation:
-    name:
-      required: true
+    name: { required: true }
 
   defaults:
     name: "New Flow"
@@ -31,22 +37,27 @@ class App.Models.Flow extends App.Models.BaseModel
       result = true
     result
 
+  public_url: ->
+    @get('public_url')
+
+  public_path: ->
+    @get('public_path')
+
   owned_by: (user)->
     @get('creator').id == user.get('id')
 
-  initialize: (raw)->
-    super raw
+  can_edit: ->
+    if App.current_user?
+      if @isNew()
+        return true
+      else if App.current_user.get("id") == @get('creator').id
+        return true
+      else if @get('flow_accesses').map((fa) -> fa.user_id).indexOf(App.current_user.get("id")) != -1
+        return true
+      else if @open()
+        return true
+    false
 
-    if not(raw?) or not(raw.flow_accesses?)
-      fa = new App.Models.FlowAccess()
-      fa.user = App.current_user
-      @flow_accesses = [ fa ]
-
-    @flow_accesses = _.map(raw.flow_accesses, (flow_access)->
-      new App.Models.FlowAccess(flow_access)
-    ) if raw? and raw.flow_accesses?
-
-    this
 
 class App.Collections.Flows extends Backbone.Collection
   url: -> App.api_url + '/flows'

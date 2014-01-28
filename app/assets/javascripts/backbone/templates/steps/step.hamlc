@@ -8,7 +8,12 @@
   - unless @completed
     .bar.buttons
       - if @can_do
-        %a.r.complete{href:"#complete"} Complete
+
+        - if @flow_can_edit
+          %a.r.complete{href:"#complete"} Complete
+        - else
+          %p Complete
+
       - else
         %p Pending
   - else
@@ -21,14 +26,18 @@
       %img{src: @image.thumb_url}
 
   .ce-wrap
-    %div.step_name{contenteditable: "true"}
+    - if @flow_can_edit
+      %div.step_name{contenteditable: "true"}
+    - else
+      %div.step_name
 
   - unless @completed
-    .bar.step-tools
-      %a.i.r.step_add_photo{href:"#step_add_image", "data-i": "add-photo"} Add Photo
-      %a.i.r.step_add_files{href:"#step_add_file", "data-i": "add-files"} Add Files
-      %a.i.no_text.r.step_move{href:"#move", "data-i": "move"} Move
-      %a.i.no_text.r.step_destroy{href:"#step_destroy", "data-i": "delete"} Delete
+    - if @flow_can_edit
+      .bar.step-tools
+        %a.i.r.step_add_photo{href:"#step_add_image", "data-i": "add-photo"} Add Photo
+        %a.i.r.step_add_files{href:"#step_add_file", "data-i": "add-files"} Add Files
+        %a.i.no_text.r.step_move{href:"#move", "data-i": "move"} Move
+        %a.i.no_text.r.step_destroy{href:"#step_destroy", "data-i": "delete"} Delete
 
   - if @attachments?
     %div.attachments
@@ -37,4 +46,5 @@
           %li.attachment
             %a.i{href: "#{attachment.file_url}", target: "_blank", "data-reload": "true", "data-i": "attachment"}
               ="#{attachment.short_name} #{attachment.human_file_size}"
-            %a.i.no_text.r.attachment_destroy{href: "#attachment_destroy", "data-id": attachment.id, "data-i": "delete"} Delete
+            - if @flow_can_edit
+              %a.i.no_text.r.attachment_destroy{href: "#attachment_destroy", "data-id": attachment.id, "data-i": "delete"} Delete

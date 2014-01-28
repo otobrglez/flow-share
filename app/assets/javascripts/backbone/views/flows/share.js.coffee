@@ -86,7 +86,6 @@ class App.module('Views.Flows').FlowAccess extends Backbone.Marionette.ItemView
 
   initialize: (options)->
     @listenTo @model, "change", =>
-      # console.log "flows_access"
       @model.save()
     super
 

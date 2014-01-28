@@ -27,6 +27,7 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
 
     @listenTo @model, "change", =>
       @model.save()
+      # @render()
 
     @listenTo @collection, "step:created", => @render()
     @listenTo @collection, "changed", => @render()
@@ -55,7 +56,10 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
         @flow_fetch()
 
   flow_fetch: ->
-    App.mainRegion.currentView.collection.fetch reset: true
+    if App.mainRegion.currentView.collection?
+      App.mainRegion.currentView.collection.fetch reset: true
+    else if App.mainRegion.currentView.model?
+      App.mainRegion.currentView.model.fetch reset: true
 
   handle_contenteditable: (e)->
     e.which != 13
@@ -71,7 +75,14 @@ class App.module('Views.Flows').Flow extends Backbone.Marionette.CompositeView #
       ) # .disableSelection()
 
   serializeData: ->
-    Object.merge super, flow_accesses: @model.flow_accesses
+    Object.merge super,
+      flow_accesses:  @model.get('flow_accesses')
+      creator:        @model.get('creator')
+      public:         @model.public()
+      open:           @model.open()
+      public_url:     @model.public_url()
+      public_path:    @model.public_path()
+      can_edit:       @model.can_edit()
 
   appendHtml: (view, item)->
     view.$el.find("ul.steps-list").append(item.el)

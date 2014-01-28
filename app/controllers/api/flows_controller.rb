@@ -1,5 +1,7 @@
 class Api::FlowsController < Api::BaseController
 
+  skip_before_action :authenticate_user! # , except: [:show]
+
   def create
     @flow = current_user.owned_flows.create(flow_params)
     respond_with @flow, location: [:api, @flow], status: :created
@@ -30,11 +32,19 @@ class Api::FlowsController < Api::BaseController
   end
 
   def flow
-    @flow ||= flows.find(params[:id])
+    if @flow.nil?
+      @flow = if params[:id].present?
+        flows.find(params[:id])
+      elsif params[:token].present?
+        Flow.public.find_by(token: params[:token])
+      end
+    end
+
+    @flow
   end
 
   def flow_params
-    params.require(:flow).permit(:id, :name, :public, :open, steps_attributes: [:id, :flow_id, :name, :comment, :_destroy])
+    params.require(:flow).permit(:id, :token, :name, :public, :open, steps_attributes: [:id, :flow_id, :name, :comment, :_destroy])
   end
 
 

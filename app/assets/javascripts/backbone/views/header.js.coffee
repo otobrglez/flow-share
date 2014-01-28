@@ -13,7 +13,7 @@ class App.module('Views').Header extends Backbone.Marionette.ItemView
 
   serializeData: ->
     Object.merge @model.toJSON(),
-      avatar_url: @model.avatar_url()
+      avatar_url: @model.get('avatar_url')
       name: @model.name()
       guest: @model.guest()
 

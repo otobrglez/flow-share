@@ -8,7 +8,7 @@ class App.Models.FlowAccess extends App.Models.BaseModel
     if @get('user')?
       @get('user').full_name || @get('user').username
     else
-      "Wait for it..."
+      "Loading..."
 
   initialize: (raw)->
     super raw
