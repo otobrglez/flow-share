@@ -1,6 +1,7 @@
 # flow-share
 
-Project by [Oto Brglez](https://github.com/otobrglez) for [Fika, Inc.](http://wefika.com) &copy; 2014
+Project started by [Oto Brglez](https://github.com/otobrglez) for [Fika, Inc.](http://wefika.com).
+Now released under MIT license. Use it if you like it. :)
 
 ## Developement setup
 
@@ -19,7 +20,7 @@ You might need to add the following to your /etc/sysctl.conf file (if it doesn't
 ### For parallel tests please prepare database
     rake parallel:create parallel:prepare
 
-### Troubles
+### Troubles && Setup
   - [PostgreSQL basics by example](http://darthdeus.github.io/blog/2013/08/19/postgresql-basics-by-example/)
   - [RailsCasts: #342 Migrating to PostgreSQL](http://railscasts.com/episodes/342-migrating-to-postgresql)
 
